@@ -1,24 +1,26 @@
 # puzzles-datetime
 
-## Project setup
+## Installation
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
+npm install --save puzzles-datetime
 ```
 
-### Compiles and minifies for production
+### Import the package in your main.js file
 ```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
+import PuzzlesDatetime from 'puzzles-datetime'
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### To install it globally
+```
+Vue.use(PuzzlesDatetime)
+```
+
+### Or in locally in a component
+```
+import 'PuzzlesDatetime' from 'puzzles-datetime'
+```
+
+### Example
+```
+<puzzles-datetime />
+```

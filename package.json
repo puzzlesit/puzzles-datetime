@@ -1,12 +1,24 @@
 {
   "name": "puzzles-datetime",
+  "description": "Puzzles Datetime picker.",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "author": {
+    "name": "Nermedin Dzekovic",
+    "email": "nermedin@puzzlesit.com"
+  },
+  "repository": "https://github.com/puzzlesit/puzzles-datetime",
+  "bugs": "https://github.com/puzzlesit/puzzles-datetime/issues",
+  "keywords": ["puzzles", "puzzlesit", "date", "time", "datetime", "date picker", "time picker", "date time picker"],
+  "license": "MIT",
+  "files": ["dist/*"],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build-library" : "vue-cli-service build --target lib --name puzzles-datetime ./src/install.js",
     "lint": "vue-cli-service lint"
   },
+  "main" : ".dist/puzzles-datetime.common.js",
   "dependencies": {
     "core-js": "^3.8.3",
     "vue": "^2.6.14"
