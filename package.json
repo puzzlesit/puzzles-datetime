@@ -31,7 +31,7 @@
     "build-library": "vue-cli-service build --target lib --name puzzles-datetime ./src/install.js",
     "lint": "vue-cli-service lint"
   },
-  "main": ".dist/puzzles-datetime.common.js",
+  "main": "dist/puzzles-datetime.common.js",
   "dependencies": {
     "core-js": "^3.8.3",
     "vue": "^2.6.14"
