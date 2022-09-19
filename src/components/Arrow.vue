@@ -25,14 +25,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.puzzles-arrow {
-  .right {
-    transform: rotate(0);
-  }
-
-  .left {
-    transform: rotate(180deg);
-  }
+<style scoped>
+.puzzles-arrow .right {
+  transform: rotate(0);
+}
+.puzzles-arrow .left {
+  transform: rotate(180deg);
 }
 </style>
