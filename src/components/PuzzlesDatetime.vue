@@ -280,11 +280,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .puzzles-slot-wrapper {
   cursor: pointer;
 }
-
 .puzzles-datetime-wrapper {
   position: fixed;
   top: 0;
@@ -295,116 +294,95 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  .background {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    background: rgba(75, 85, 99, 0.75);
-    z-index: 1;
-  }
-
-  .puzzles-datetime {
-    position: relative;
-    background: white;
-    z-index: 100;
-    margin: auto;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
-    -webkit-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
-    -moz-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
-
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      font-size: 1rem;
-    }
-
-    td, th {
-      border: 1px solid #797f8a;
-      padding: 0.5rem;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    th {
-      font-weight: bold;
-      background-color: #E6E6E6;
-    }
-
-    .selected {
-      background: #7367f0;
-      color: white;
-    }
-
-    .year, .month {
-      display: flex;
-      justify-content: space-between;
-      height: 2rem;
-      padding: 0.5rem;
-      line-height: 2rem;
-
-      .arrow {
-        height: 2rem;
-        padding: 0 0.5rem;
-        cursor: pointer;
-      }
-
-      .wrapper {
-        background: white;
-        height: 2rem;
-        line-height: 2rem;
-        z-index: 100;
-        overflow: hidden;
-        position: relative;
-        border-radius: 0.5rem;
-
-        .years-wrapper, .months-wrapper {
-          border-radius: 0.5rem;
-          transform: translateY(0);
-        }
-
-        div {
-          cursor: pointer;
-          text-align: center;
-          width: 150px;
-          font-size: 1.5rem;
-        }
-      }
-
-      .expand {
-        height: 24rem;
-        z-index: 110;
-        box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
-        -webkit-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
-        -moz-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
-
-        div {
-          font-size: 1rem;
-        }
-      }
-    }
-
-    .year {
-      .years-wrapper {
-        flex-direction: column-reverse; // TODO extra
-        display: flex;
-      }
-
-      .expand {
-        overflow: scroll; // TODO extra
-        transform: translateY(-3rem); // TODO extra
-      }
-    }
-
-    .month {
-      .expand {
-        transform: translateY(-6rem); // TODO extra
-      }
-    }
-
-  }
+}
+.puzzles-datetime-wrapper .background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  background: rgba(75, 85, 99, 0.75);
+  z-index: 1;
+}
+.puzzles-datetime-wrapper .puzzles-datetime {
+  position: relative;
+  background: white;
+  z-index: 100;
+  margin: auto;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
+  -webkit-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
+  -moz-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
+}
+.puzzles-datetime-wrapper .puzzles-datetime table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 1rem;
+}
+.puzzles-datetime-wrapper .puzzles-datetime td, .puzzles-datetime-wrapper .puzzles-datetime th {
+  border: 1px solid #797f8a;
+  padding: 0.5rem;
+  text-align: center;
+  cursor: pointer;
+}
+.puzzles-datetime-wrapper .puzzles-datetime th {
+  font-weight: bold;
+  background-color: #e6e6e6;
+}
+.puzzles-datetime-wrapper .puzzles-datetime .selected {
+  background: #7367f0;
+  color: white;
+}
+.puzzles-datetime-wrapper .puzzles-datetime .year, .puzzles-datetime-wrapper .puzzles-datetime .month {
+  display: flex;
+  justify-content: space-between;
+  height: 2rem;
+  padding: 0.5rem;
+  line-height: 2rem;
+}
+.puzzles-datetime-wrapper .puzzles-datetime .year .arrow, .puzzles-datetime-wrapper .puzzles-datetime .month .arrow {
+  height: 2rem;
+  padding: 0 0.5rem;
+  cursor: pointer;
+}
+.puzzles-datetime-wrapper .puzzles-datetime .year .wrapper, .puzzles-datetime-wrapper .puzzles-datetime .month .wrapper {
+  background: white;
+  height: 2rem;
+  line-height: 2rem;
+  z-index: 100;
+  overflow: hidden;
+  position: relative;
+  border-radius: 0.5rem;
+}
+.puzzles-datetime-wrapper .puzzles-datetime .year .wrapper .years-wrapper, .puzzles-datetime-wrapper .puzzles-datetime .month .wrapper .years-wrapper, .puzzles-datetime-wrapper .puzzles-datetime .year .wrapper .months-wrapper, .puzzles-datetime-wrapper .puzzles-datetime .month .wrapper .months-wrapper {
+  border-radius: 0.5rem;
+  transform: translateY(0);
+}
+.puzzles-datetime-wrapper .puzzles-datetime .year .wrapper div, .puzzles-datetime-wrapper .puzzles-datetime .month .wrapper div {
+  cursor: pointer;
+  text-align: center;
+  width: 150px;
+  font-size: 1.5rem;
+}
+.puzzles-datetime-wrapper .puzzles-datetime .year .expand, .puzzles-datetime-wrapper .puzzles-datetime .month .expand {
+  height: 24rem;
+  z-index: 110;
+  box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
+  -webkit-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
+  -moz-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
+}
+.puzzles-datetime-wrapper .puzzles-datetime .year .expand div, .puzzles-datetime-wrapper .puzzles-datetime .month .expand div {
+  font-size: 1rem;
+}
+.puzzles-datetime-wrapper .puzzles-datetime .year .years-wrapper {
+  flex-direction: column-reverse;
+  display: flex;
+}
+.puzzles-datetime-wrapper .puzzles-datetime .year .expand {
+  overflow: scroll;
+  transform: translateY(-3rem);
+}
+.puzzles-datetime-wrapper .puzzles-datetime .month .expand {
+  transform: translateY(-6rem);
 }
 </style>
