@@ -19,8 +19,7 @@
           <template v-else>
             <div class="year">
               <div class="arrow" @click="move('year', false)">
-<!--                <arrow direction="left"/>-->
-                L
+                <arrow direction="left"/>
               </div>
 
               <div ref="year-selector"
@@ -39,15 +38,13 @@
               </div>
 
               <div class="arrow" @click="move('year', true)">
-<!--                <arrow direction="right"/>-->
-                R
+                <arrow direction="right"/>
               </div>
             </div>
 
             <div class="month">
               <div class="arrow" @click="move('month', false)">
-<!--                <arrow direction="left"/>-->
-                L
+                <arrow direction="left"/>
               </div>
 
               <div ref="month-selector"
@@ -66,8 +63,7 @@
               </div>
 
               <div class="arrow" @click="move('month', true)">
-<!--                <arrow direction="right"/>-->
-                R
+                <arrow direction="right"/>
               </div>
             </div>
 
@@ -109,7 +105,7 @@
 
 <script>
 // import Vue from 'vue';
-// import Arrow from './Arrow';
+import Arrow from './Arrow';
 
 export default {
   name: 'PuzzlesDatetime',
@@ -145,7 +141,7 @@ export default {
     }
   },
   components: {
-    // Arrow
+    Arrow
   },
   created() {
     for (let i = 1900; i <= 2050; i++) {
@@ -345,7 +341,7 @@ export default {
   display: flex;
   justify-content: space-between;
   height: 2rem;
-  padding: 0.5rem;
+  /*padding: 0.5rem;*/
   line-height: 2rem;
 }
 .puzzles-datetime-wrapper .puzzles-datetime .year .arrow, .puzzles-datetime-wrapper .puzzles-datetime .month .arrow {
