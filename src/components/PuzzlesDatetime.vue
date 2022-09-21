@@ -19,7 +19,8 @@
           <template v-else>
             <div class="year">
               <div class="arrow" @click="move('year', false)">
-                <arrow direction="left"/>
+<!--                <arrow direction="left"/>-->
+                L
               </div>
 
               <div ref="year-selector"
@@ -38,13 +39,15 @@
               </div>
 
               <div class="arrow" @click="move('year', true)">
-                <arrow direction="right"/>
+<!--                <arrow direction="right"/>-->
+                R
               </div>
             </div>
 
             <div class="month">
               <div class="arrow" @click="move('month', false)">
-                <arrow direction="left"/>
+<!--                <arrow direction="left"/>-->
+                L
               </div>
 
               <div ref="month-selector"
@@ -63,7 +66,8 @@
               </div>
 
               <div class="arrow" @click="move('month', true)">
-                <arrow direction="right"/>
+<!--                <arrow direction="right"/>-->
+                R
               </div>
             </div>
 
@@ -104,8 +108,8 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import Arrow from './Arrow';
+// import Vue from 'vue';
+// import Arrow from './Arrow';
 
 export default {
   name: 'PuzzlesDatetime',
@@ -141,7 +145,7 @@ export default {
     }
   },
   components: {
-    Arrow
+    // Arrow
   },
   created() {
     for (let i = 1900; i <= 2050; i++) {
@@ -157,9 +161,12 @@ export default {
   watch: {
     open(n) {
       if (n) {
-        Vue.nextTick(() => {
-          this.init();
-        });
+        let interval = setInterval(() => {
+          if (this.$refs) {
+            this.init();
+            clearInterval(interval);
+          }
+        }, 10);
       }
     }
   },
@@ -174,7 +181,7 @@ export default {
         this.datetime.month = new Date().getMonth() + 1;
       }
 
-      this.createCalendar(this.$refs.calendar, this.datetime.year, this.datetime.month);
+      this.createCalendar(this.datetime.year, this.datetime.month);
 
       this.transform('years-wrapper', -this.$refs[this.datetime.year][0].offsetTop);
       this.transform('months-wrapper', -this.$refs[this.datetime.month][0].offsetTop);
@@ -228,7 +235,8 @@ export default {
         this.open = false; // Close the modal when date has been selected
       } else {
         this.transform(`${type}s-wrapper`, -this.$refs[value][0].offsetTop);
-        this.createCalendar(this.$refs.calendar, this.datetime.year, this.datetime.month); // If year or month are changed, update calendar view
+        console.log(this.$refs.calendar)
+        this.createCalendar(this.datetime.year, this.datetime.month); // If year or month are changed, update calendar view
       }
     },
     openSelector(type, scroll = false) {
@@ -239,7 +247,7 @@ export default {
 
       this.transform(`${type}s-wrapper`, 0);
     },
-    createCalendar(elem, year, month) {
+    createCalendar(year, month) {
       this.dates = [];
       let mon = month - 1; // months in JS are 0..11, not 1..12
       let d = new Date(year, mon);
