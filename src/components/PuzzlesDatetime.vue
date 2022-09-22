@@ -17,24 +17,29 @@
             </div>
           </template>
           <template v-else>
-            <div class="year">
+            <div class="selector">
               <div class="arrow" @click="move('year', false)">
                 <arrow direction="left"/>
               </div>
 
-              <div ref="year-selector"
-                   :class="{ 'expand': selectors.year }"
+              <div class="selector-field"
+                   v-show="!selectors.year"
+                   @click="openSelector('year', true)">
+                {{ datetime.year }}
+              </div>
+
+              <div v-show="selectors.year"
                    class="wrapper">
-                <div ref="years-wrapper" class="years-wrapper">
+                <div ref="year-selector"
+                     class="selector-wrapper">
                   <div v-for="year in years"
                        :key="`year-${year}`"
-                       :ref="year"
+                       :ref="`year-${year}`"
                        :class="{ selected: year === datetime.year && selectors.year }"
-                       @click="selectors.year ? select('year', year, true) : openSelector('year', true)">
+                       @click="select('year', year, true)">
                     {{ year }}
                   </div>
                 </div>
-
               </div>
 
               <div class="arrow" @click="move('year', true)">
@@ -42,24 +47,29 @@
               </div>
             </div>
 
-            <div class="month">
+            <div class="selector">
               <div class="arrow" @click="move('month', false)">
                 <arrow direction="left"/>
               </div>
 
-              <div ref="month-selector"
-                   :class="{ 'expand': selectors.month }"
+              <div class="selector-field"
+                   v-show="!selectors.month"
+                   @click="openSelector('month', true)">
+                {{ monthNames[datetime.month - 1] }}
+              </div>
+
+              <div v-show="selectors.month"
                    class="wrapper">
-                <div ref="months-wrapper" class="months-wrapper">
+                <div ref="month-selector"
+                     class="selector-wrapper">
                   <div v-for="month in months"
                        :key="`month-${month}`"
-                       :ref="month"
+                       :ref="`month-${month}`"
                        :class="{ selected: month === datetime.month && selectors.month }"
-                       @click="selectors.month ? select('month', month) : openSelector('month')">
+                       @click="select('month', month, true)">
                     {{ monthNames[month - 1] }}
                   </div>
                 </div>
-
               </div>
 
               <div class="arrow" @click="move('month', true)">
@@ -93,9 +103,32 @@
           </template>
         </template>
         <template v-if="type === 'time' || type === 'datetime'">
-          <div>
-            {{ datetime.time }}
-          </div>
+<!--          <div>-->
+<!--            <div class="hour">-->
+<!--              <div class="arrow" @click="move('hour', true)">-->
+<!--                <arrow direction="up"/>-->
+<!--              </div>-->
+
+<!--              <div ref="hour-selector"-->
+<!--                   :class="{ 'expand': selectors.hour }"-->
+<!--                   class="wrapper">-->
+<!--                <div ref="hours-wrapper" class="hours-wrapper">-->
+<!--                  <div v-for="hour in hours"-->
+<!--                       :key="`hour-${hour}`"-->
+<!--                       :ref="hour"-->
+<!--                       :class="{ selected: hour === datetime.hour && selectors.hour }"-->
+<!--                       @click="selectors.hour ? select('hour', hour, true) : openSelector('hour', true)">-->
+<!--                    {{ hour }}-->
+<!--                  </div>-->
+<!--                </div>-->
+
+<!--              </div>-->
+
+<!--              <div class="arrow" @click="move('hour', false)">-->
+<!--                <arrow direction="down"/>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
         </template>
 
       </div>
@@ -121,12 +154,17 @@ export default {
         year: null,
         month: null,
         date: null,
-        time: null
+        time: null, // Remove this one
+        hour: null
       },
       selectors: {
         year: false,
-        month: false
-      }
+        month: false,
+        hour: false
+      },
+      vFormat: 'yyyy-MM-dd',
+      dFormat: 'd MMM yyyy',
+      hours: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
     }
   },
   props: {
@@ -141,11 +179,11 @@ export default {
     },
     valueFormat: {
       type: String,
-      default: 'yyyy-MM-dd'
+      default: ''
     },
     displayFormat: {
       type: String,
-      default: 'd MMM yyyy'
+      default: ''
     }
   },
   components: {
@@ -157,18 +195,35 @@ export default {
     }
   },
   mounted() {
-    if (this.value)
-      this.$emit('display', format(new Date(this.value), this.displayFormat));
+    if (this.type === 'time') {
+      this.vFormat = "H:m";
+      this.dFormat = "H:m";
+    }
+
+    if (this.valueFormat)
+      this.vFormat = this.valueFormat;
+
+    if (this.displayFormat)
+      this.dFormat = this.displayFormat;
+
+    if (this.value && this.type === 'date')
+      this.$emit('display', format(new Date(this.value), this.dFormat));
+
+    if (this.value && this.type === 'time')
+      this.$emit('display', this.value);
   },
   watch: {
     open(n) {
-      if (n) {
+      if (n && this.type === 'date') {
         let interval = setInterval(() => {
           if (this.$refs) {
             this.init();
             clearInterval(interval);
           }
         }, 10);
+      }
+      if (n && this.type === 'time') {
+        this.initTime();
       }
     }
   },
@@ -183,19 +238,17 @@ export default {
         this.datetime.month = new Date().getMonth() + 1;
       }
 
-      console.log('test')
-
       this.createCalendar(this.datetime.year, this.datetime.month);
-
-      this.transform('years-wrapper', -this.$refs[this.datetime.year][0].offsetTop);
-      this.transform('months-wrapper', -this.$refs[this.datetime.month][0].offsetTop);
+    },
+    initTime() {
+      // if (this.value) {
+      //   this.datetime.time = this.value;
+      //   this.datetime.hour = '00';
+      // }
     },
     updateValue() {
-      this.$emit('input', format(new Date(this.datetime.year, this.datetime.month-1, this.datetime.date), this.valueFormat));
-      this.$emit('display', format(new Date(this.datetime.year, this.datetime.month-1, this.datetime.date), this.displayFormat));
-    },
-    transform(el, y) {
-      this.$refs[el].style.transform = `translateY(${y}px)`;
+      this.$emit('input', format(new Date(this.datetime.year, this.datetime.month-1, this.datetime.date), this.vFormat));
+      this.$emit('display', format(new Date(this.datetime.year, this.datetime.month-1, this.datetime.date), this.dFormat));
     },
     scrollTo(el, to) {
       this.$refs[el].scrollTo({top: to})
@@ -225,31 +278,35 @@ export default {
       }
 
     },
-    select(type, value, scroll = false) {
+    select(type, value) {
       if (!value) return; // If no value has been passed, simply return
 
       this.datetime[type] = value; // Set value
       this.selectors[type] = false; // Close selector if opened
-
-      if (scroll) // If scroll is enabled, scroll to that value so it is shown in selector when it's closed
-        this.scrollTo(`${type}-selector`, 0);
 
       if (type === 'date') {
         this.datetime.date = value;
         this.updateValue();
         this.open = false; // Close the modal when date has been selected
       } else {
-        this.transform(`${type}s-wrapper`, -this.$refs[value][0].offsetTop);
         this.createCalendar(this.datetime.year, this.datetime.month); // If year or month are changed, update calendar view
       }
     },
     openSelector(type, scroll = false) {
       if (!this.selectors[type]) this.selectors[type] = true;
 
-      if (scroll)
-        this.scrollTo(`${type}-selector`, this.$refs[this.datetime.year][0].offsetTop);
+      if (scroll) {
+        let interval = setInterval(() => {
+          if (this.$refs[`${type}-selector`].childNodes.length) {
+            // let to = this.$refs[`${type}-selector`].clientHeight / 2;
+            let to = this.$refs[`${type}-${this.datetime[type]}`][0].offsetTop;
 
-      this.transform(`${type}s-wrapper`, 0);
+            to -= this.$refs[`${type}-selector`].clientHeight / 2;
+          this.scrollTo(`${type}-selector`, to + 20);
+            clearInterval(interval);
+          }
+        }, 10);
+      }
     },
     createCalendar(year, month) {
       this.dates = [];
@@ -355,68 +412,57 @@ export default {
       color: white;
     }
 
-    .year, .month {
+    .selector {
       display: flex;
       justify-content: space-between;
       height: 40px;
       padding-bottom: 20px;
       line-height: 40px;
-    }
 
-    .year .arrow, .month .arrow {
-      height: 40px;
-      padding: 0 10px;
-      cursor: pointer;
-    }
-
-    .year .wrapper, .month .wrapper {
-      background: white;
-      height: 40px;
-      line-height: 40px;
-      z-index: 100;
-      overflow: hidden;
-      position: relative;
-      border-radius: 10px;
-    }
-
-    .year .wrapper .years-wrapper, .month .wrapper .years-wrapper, .year .wrapper .months-wrapper, .month .wrapper .months-wrapper {
-      border-radius: 10px;
-      transform: translateY(0);
-    }
-
-    .year .wrapper div, .month .wrapper div {
-      cursor: pointer;
-      text-align: center;
-      width: 150px;
-      font-size: 24px;
-    }
-
-    .year .expand, .month .expand {
-      height: 480px;
-      z-index: 110;
-      box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
-      -webkit-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
-      -moz-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
-    }
-
-    .year .expand div, .month .expand div {
-      font-size: 16px;
-    }
-
-    .year {
-      .years-wrapper {
-        flex-direction: column-reverse;
-        display: flex;
+      .selector-field {
+        cursor: pointer;
+        text-align: center;
+        width: 150px;
+        font-size: 24px;
+        height: 40px;
+        padding: 0 10px;
+        line-height: 40px;
+        position: relative;
       }
 
-      .expand {
-        overflow: scroll;
-        transform: translateY(-50px);
+      .arrow {
+        height: 40px;
+        padding: 0 10px;
+        cursor: pointer;
       }
-    }
 
-    .month .expand {
-      transform: translateY(-120px);
+      .wrapper {
+        position: absolute;
+        height: calc(100% + 80px);
+        background: white;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        min-height: 480px;
+        max-height: 480px;
+        z-index: 100;
+        border-radius: 10px;
+
+        .selector-wrapper {
+          position: relative;
+          height: 100%;
+          border-radius: 10px;
+          transform: translateY(0);
+          overflow: auto;
+        }
+
+        div {
+          cursor: pointer;
+          text-align: center;
+          width: 150px;
+          font-size: 24px;
+        }
+      }
     }
   }
 }

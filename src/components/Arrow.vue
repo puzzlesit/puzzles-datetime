@@ -32,4 +32,12 @@ export default {
 .puzzles-arrow .left {
   transform: rotate(180deg);
 }
+
+.puzzles-arrow .up {
+  transform: rotate(270deg);
+}
+
+.puzzles-arrow .down {
+  transform: rotate(90deg);
+}
 </style>
