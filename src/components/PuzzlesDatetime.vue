@@ -1,7 +1,7 @@
 <template>
   <div :key="`puzzles-datetime-${key}`">
     <div class="puzzles-slot-wrapper" @click="toggle">
-      <slot />
+      <slot/>
     </div>
 
     <div v-if="open"
@@ -13,12 +13,13 @@
         <template v-if="type === 'date' || type === 'datetime'">
           <template v-if="simple">
             <div>
-              Simple Calendar
+              Simple Calendar - Not implemented yet!
             </div>
           </template>
           <template v-else>
             <div class="selector">
-              <div class="arrow" @click="move('year', false)">
+              <div class="arrow"
+                   @click="move('year', false)">
                 <arrow direction="left"/>
               </div>
 
@@ -41,13 +42,15 @@
                 </div>
               </div>
 
-              <div class="arrow" @click="move('year', true)">
+              <div class="arrow"
+                   @click="move('year', true)">
                 <arrow direction="right"/>
               </div>
             </div>
 
             <div class="selector">
-              <div class="arrow" @click="move('month', false)">
+              <div class="arrow"
+                   @click="move('month', false)">
                 <arrow direction="left"/>
               </div>
 
@@ -70,7 +73,8 @@
                 </div>
               </div>
 
-              <div class="arrow" @click="move('month', true)">
+              <div class="arrow"
+                   @click="move('month', true)">
                 <arrow direction="right"/>
               </div>
             </div>
@@ -78,13 +82,9 @@
             <div>
               <table>
                 <tr>
-                  <th>MO</th>
-                  <th>TU</th>
-                  <th>WE</th>
-                  <th>TH</th>
-                  <th>FR</th>
-                  <th>SA</th>
-                  <th>SU</th>
+                  <th v-for="day in days" :key="day">
+                    {{ day }}
+                  </th>
                 </tr>
                 <tr v-for="(row, i) in dates"
                     :key="`row-${i}`">
@@ -103,7 +103,8 @@
         <template v-if="type === 'time' || type === 'datetime'">
           <div class="time-selectors">
             <div class="selector">
-              <div class="arrow" @click="move('hour', true)">
+              <div class="arrow"
+                   @click="move('hour', true)">
                 <arrow direction="up"/>
               </div>
 
@@ -126,13 +127,15 @@
                 </div>
               </div>
 
-              <div class="arrow" @click="move('hour', false)">
+              <div class="arrow"
+                   @click="move('hour', false)">
                 <arrow direction="down"/>
               </div>
             </div>
 
             <div class="selector">
-              <div class="arrow" @click="move('minute', true)">
+              <div class="arrow"
+                   @click="move('minute', true)">
                 <arrow direction="up"/>
               </div>
 
@@ -155,7 +158,8 @@
                 </div>
               </div>
 
-              <div class="arrow" @click="move('minute', false)">
+              <div class="arrow"
+                   @click="move('minute', false)">
                 <arrow direction="down"/>
               </div>
             </div>
@@ -163,10 +167,12 @@
         </template>
 
         <div class="buttons">
-          <div class="button" @click="done('time')">
+          <div class="button"
+               @click="done('time')">
             Done
           </div>
-          <div class="button" @click="done('clear')">
+          <div class="button"
+               @click="done('clear')">
             Clear
           </div>
         </div>
@@ -178,7 +184,7 @@
 
 <script>
 import Arrow from './Arrow';
-import { format } from 'date-fns'
+import {format} from 'date-fns'
 
 export default {
   name: 'PuzzlesDatetime',
@@ -190,6 +196,7 @@ export default {
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], // TODO: Make this as prop.
       dates: [],
+      days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], // TODO: Make this as prop.
       datetime: {
         year: null,
         month: null,
@@ -215,7 +222,7 @@ export default {
       type: String,
       default: 'date' // datetime, date, time - validate
     },
-    simple: {
+    simple: { // TODO: Implement Simple Date Time pickers
       type: Boolean,
       default: false
     },
@@ -232,6 +239,7 @@ export default {
     Arrow
   },
   created() {
+    // TODO: Handle these more efficiently
     for (let i = 1900; i <= 2050; i++) {
       this.years.push(i)
     }
@@ -316,8 +324,6 @@ export default {
     initDatetime() {
       let date = this.value ? new Date(this.value) : new Date();
 
-      console.log(date);
-
       this.datetime = {
         year: date.getFullYear(),
         month: date.getMonth() + 1,
@@ -344,8 +350,8 @@ export default {
     },
     updateValue() {
       if (this.type === 'date') {
-        this.$emit('input', format(new Date(this.datetime.year, this.datetime.month-1, this.datetime.date), this.vFormat));
-        this.$emit('display', format(new Date(this.datetime.year, this.datetime.month-1, this.datetime.date), this.dFormat));
+        this.$emit('input', format(new Date(this.datetime.year, this.datetime.month - 1, this.datetime.date), this.vFormat));
+        this.$emit('display', format(new Date(this.datetime.year, this.datetime.month - 1, this.datetime.date), this.dFormat));
       }
 
       if (this.type === 'time') {
@@ -354,8 +360,8 @@ export default {
       }
 
       if (this.type === 'datetime') {
-        this.$emit('input', format(new Date(this.datetime.year, this.datetime.month-1, this.datetime.date, this.datetime.hour, this.datetime.minute), this.vFormat));
-        this.$emit('display', format(new Date(this.datetime.year, this.datetime.month-1, this.datetime.date, this.datetime.hour, this.datetime.minute), this.dFormat));
+        this.$emit('input', format(new Date(this.datetime.year, this.datetime.month - 1, this.datetime.date, this.datetime.hour, this.datetime.minute), this.vFormat));
+        this.$emit('display', format(new Date(this.datetime.year, this.datetime.month - 1, this.datetime.date, this.datetime.hour, this.datetime.minute), this.dFormat));
       }
     },
     scrollTo(el, to) {
@@ -414,7 +420,7 @@ export default {
             let to = this.$refs[`${type}-${this.datetime[type]}`][0].offsetTop;
 
             to -= this.$refs[`${type}-selector`].clientHeight / 2;
-          this.scrollTo(`${type}-selector`, to + 20);
+            this.scrollTo(`${type}-selector`, to + 20);
             clearInterval(interval);
           }
         }, 10);
@@ -616,7 +622,8 @@ export default {
   -khtml-user-select: none; /* Konqueror HTML */
   -moz-user-select: none; /* Old versions of Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+  user-select: none;
+  /* Non-prefixed version, currently
+                                   supported by Chrome, Edge, Opera and Firefox */
 }
 </style>
