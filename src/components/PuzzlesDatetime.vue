@@ -1,7 +1,7 @@
 <template>
   <div :key="`puzzles-datetime-${key}`">
     <div class="puzzles-slot-wrapper" @click="toggle">
-      <slot/>
+      <slot :display="displayValue" />
     </div>
 
     <div v-if="open"
@@ -104,8 +104,8 @@
 </template>
 
 <script>
-// import Vue from 'vue';
 import Arrow from './Arrow';
+import { format } from 'date-fns'
 
 export default {
   name: 'PuzzlesDatetime',
@@ -138,6 +138,14 @@ export default {
     simple: {
       type: Boolean,
       default: false
+    },
+    valueFormat: {
+      type: String,
+      default: 'yyyy-MM-dd'
+    },
+    displayFormat: {
+      type: String,
+      default: 'd MMM yyyy'
     }
   },
   components: {
@@ -166,6 +174,11 @@ export default {
       }
     }
   },
+  computed: {
+    displayValue() {
+        return this.value ? format(new Date(this.datetime.year, this.datetime.month-1, this.datetime.date), this.displayFormat) : null;
+    }
+  },
   methods: {
     init() {
       if (this.value) {
@@ -183,7 +196,7 @@ export default {
       this.transform('months-wrapper', -this.$refs[this.datetime.month][0].offsetTop);
     },
     updateValue() {
-      this.$emit('input', `${this.datetime.year}-${this.datetime.month.toString().length === 1 ? ('0' + this.datetime.month) : this.datetime.month}-${this.datetime.date.toString().length === 1 ? ('0' + this.datetime.date) : this.datetime.date}`);
+      this.$emit('input', format(new Date(this.datetime.year, this.datetime.month-1, this.datetime.date), this.valueFormat));
     },
     transform(el, y) {
       this.$refs[el].style.transform = `translateY(${y}px)`;
