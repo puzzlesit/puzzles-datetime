@@ -22,6 +22,4 @@ pnpm-debug.log*
 *.sw?
 
 # Testing Files
-src/App.vue
-src/main.js
 public
