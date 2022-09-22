@@ -90,8 +90,8 @@
                     :key="`row-${i}`">
                   <td v-for="(d, j) in row"
                       :key="`col-${i}-${j}`"
-                      :class="{ selected: d === datetime.date && new Date(value).getMonth()+1 === datetime.month &&  new Date(value).getFullYear() === datetime.year}"
-                      @click="select('date', d)">
+                      :class="{ selected: d === datetime.date }"
+                      @click="select(type, d)">
                     {{ d }}
                   </td>
                 </tr>
@@ -160,11 +160,16 @@
               </div>
             </div>
           </div>
+        </template>
 
-          <div class="done-button" @click="done('time')">
+        <div class="buttons">
+          <div class="button" @click="done('time')">
             Done
           </div>
-        </template>
+          <div class="button" @click="done('clear')">
+            Clear
+          </div>
+        </div>
 
       </div>
     </div>
@@ -200,7 +205,7 @@ export default {
       },
       vFormat: 'yyyy-MM-dd',
       dFormat: 'd MMM yyyy',
-      hours: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
+      hours: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'], // TODO: Generate these
       minutes: []
     }
   },
@@ -232,13 +237,18 @@ export default {
     }
 
     for (let i = 0; i < 60; i++) {
-      this.minutes.push(i.toString().length === 1 ? `0${i}` : i);
+      this.minutes.push(i.toString().length === 1 ? `0${i}` : i.toString());
     }
   },
   mounted() {
     if (this.type === 'time') {
       this.vFormat = "HH:mm";
       this.dFormat = "HH:mm";
+    }
+
+    if (this.type === 'datetime') {
+      this.vFormat = "yyyy-MM-dd HH:mm";
+      this.dFormat = "d MMM yyyy HH:mm";
     }
 
     if (this.valueFormat)
@@ -252,6 +262,9 @@ export default {
 
     if (this.value && this.type === 'time')
       this.initTime();
+
+    if (this.value && this.type === 'datetime')
+      this.initDatetime();
   },
   watch: {
     open(n) {
@@ -266,9 +279,13 @@ export default {
       if (n && this.type === 'time') {
         this.initTime();
       }
+      if (n && this.type === 'datetime') {
+        this.initDatetime();
+      }
     }
   },
   methods: {
+    // TODO: Use one universal init method for all
     init() {
       if (this.value) {
         this.datetime.year = new Date(this.value).getFullYear();
@@ -287,13 +304,41 @@ export default {
         this.datetime.hour = h.length === 1 ? `0${h}` : h;
         let m = new Date('1971-01-01 ' + this.value).getMinutes().toString();
         this.datetime.minute = m.length === 1 ? `0${m}` : m;
-
-        this.updateValue();
+      } else {
+        let h = new Date().getHours().toString();
+        this.datetime.hour = h.length === 1 ? `0${h}` : h;
+        let m = new Date().getMinutes().toString();
+        this.datetime.minute = m.length === 1 ? `0${m}` : m;
       }
+      this.updateValue();
+
+    },
+    initDatetime() {
+      let date = this.value ? new Date(this.value) : new Date();
+
+      console.log(date);
+
+      this.datetime = {
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        date: date.getDate(),
+        hour: date.getHours().toString().length === 1 ? `0${date.getHours().toString()}` : date.getHours().toString(),
+        minute: date.getMinutes().toString().length === 1 ? `0${date.getMinutes().toString()}` : date.getMinutes().toString()
+      }
+
+      this.updateValue();
+
+      this.createCalendar(this.datetime.year, this.datetime.month);
     },
     done(type) {
       if (type === 'time') {
         this.updateValue();
+        this.toggle();
+      }
+      if (type === 'clear') {
+        this.datetime = {};
+        this.$emit('input', null);
+        this.$emit('display', null);
         this.toggle();
       }
     },
@@ -306,6 +351,11 @@ export default {
       if (this.type === 'time') {
         this.$emit('input', format(new Date(`1971-01-01 ${this.datetime.hour}:${this.datetime.minute}`), this.vFormat));
         this.$emit('display', format(new Date(`1971-01-01 ${this.datetime.hour}:${this.datetime.minute}`), this.dFormat));
+      }
+
+      if (this.type === 'datetime') {
+        this.$emit('input', format(new Date(this.datetime.year, this.datetime.month-1, this.datetime.date, this.datetime.hour, this.datetime.minute), this.vFormat));
+        this.$emit('display', format(new Date(this.datetime.year, this.datetime.month-1, this.datetime.date, this.datetime.hour, this.datetime.minute), this.dFormat));
       }
     },
     scrollTo(el, to) {
@@ -342,11 +392,15 @@ export default {
       this.datetime[type] = value; // Set value
       this.selectors[type] = false; // Close selector if opened
 
-      if (type === 'date') {
+      if (type === 'date' || type === 'datetime') {
         this.datetime.date = value;
-        this.updateValue();
-        this.open = false; // Close the modal when date has been selected
-      } else {
+
+        if (type === 'date') {
+          this.updateValue();
+          this.open = false; // Close the modal when date has been selected
+        }
+      } else if (type === 'month' || type === 'year') {
+        this.datetime.date = '';
         this.createCalendar(this.datetime.year, this.datetime.month); // If year or month are changed, update calendar view
       }
     },
@@ -465,10 +519,17 @@ export default {
       background-color: #e6e6e6;
     }
 
-    .done-button {
-      text-align: center;
-      cursor: pointer;
+    .buttons {
+      display: flex;
+      justify-content: center;
+
+      .button {
+        padding: 10px;
+        text-align: center;
+        cursor: pointer;
+      }
     }
+
 
     .selected {
       background: #7367f0;
@@ -529,6 +590,7 @@ export default {
         max-height: 480px;
         z-index: 100;
         border-radius: 10px;
+        border: 1px solid gray;
 
         .selector-wrapper {
           position: relative;
@@ -547,5 +609,14 @@ export default {
       }
     }
   }
+
+  // Disable Selection
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }
 </style>

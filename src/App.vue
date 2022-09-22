@@ -23,6 +23,20 @@
 
     <br>
     Time: {{ time }}
+
+    <hr>
+
+    <puzzles-datetime v-model="datetime"
+                      type="datetime"
+                      @display="displayDatetime = arguments[0]">
+      <input type="text"
+             v-model="displayDatetime"
+             placeholder="Select a Datetime"
+             readonly>
+    </puzzles-datetime>
+
+    <br>
+    Datetime: {{ datetime }}
   </div>
 </template>
 
@@ -34,8 +48,10 @@ export default { // This page is only for testing
     return {
       date: '2022-10-09',
       displayDate: '',
-      time: '1:44',
-      displayTime: ''
+      time: '',
+      displayTime: '',
+      datetime: '2022-10-22 20:04',
+      displayDatetime: ''
     }
   },
   components: {
