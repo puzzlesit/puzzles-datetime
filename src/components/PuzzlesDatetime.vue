@@ -23,7 +23,6 @@
               </div>
 
               <div class="selector-field"
-                   v-show="!selectors.year"
                    @click="openSelector('year', true)">
                 {{ datetime.year }}
               </div>
@@ -53,7 +52,6 @@
               </div>
 
               <div class="selector-field"
-                   v-show="!selectors.month"
                    @click="openSelector('month', true)">
                 {{ monthNames[datetime.month - 1] }}
               </div>
@@ -103,32 +101,69 @@
           </template>
         </template>
         <template v-if="type === 'time' || type === 'datetime'">
-<!--          <div>-->
-<!--            <div class="hour">-->
-<!--              <div class="arrow" @click="move('hour', true)">-->
-<!--                <arrow direction="up"/>-->
-<!--              </div>-->
+          <div class="time-selectors">
+            <div class="selector">
+              <div class="arrow" @click="move('hour', true)">
+                <arrow direction="up"/>
+              </div>
 
-<!--              <div ref="hour-selector"-->
-<!--                   :class="{ 'expand': selectors.hour }"-->
-<!--                   class="wrapper">-->
-<!--                <div ref="hours-wrapper" class="hours-wrapper">-->
-<!--                  <div v-for="hour in hours"-->
-<!--                       :key="`hour-${hour}`"-->
-<!--                       :ref="hour"-->
-<!--                       :class="{ selected: hour === datetime.hour && selectors.hour }"-->
-<!--                       @click="selectors.hour ? select('hour', hour, true) : openSelector('hour', true)">-->
-<!--                    {{ hour }}-->
-<!--                  </div>-->
-<!--                </div>-->
+              <div class="selector-field"
+                   @click="openSelector('hour', true)">
+                {{ datetime.hour }}
+              </div>
 
-<!--              </div>-->
+              <div v-show="selectors.hour"
+                   class="wrapper">
+                <div ref="hour-selector"
+                     class="selector-wrapper">
+                  <div v-for="hour in hours"
+                       :key="`hour-${hour}`"
+                       :ref="`hour-${hour}`"
+                       :class="{ selected: hour === datetime.hour && selectors.hour }"
+                       @click="select('hour', hour, true)">
+                    {{ hour }}
+                  </div>
+                </div>
+              </div>
 
-<!--              <div class="arrow" @click="move('hour', false)">-->
-<!--                <arrow direction="down"/>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
+              <div class="arrow" @click="move('hour', false)">
+                <arrow direction="down"/>
+              </div>
+            </div>
+
+            <div class="selector">
+              <div class="arrow" @click="move('minute', true)">
+                <arrow direction="up"/>
+              </div>
+
+              <div class="selector-field"
+                   @click="openSelector('minute', true)">
+                {{ datetime.minute }}
+              </div>
+
+              <div v-show="selectors.minute"
+                   class="wrapper">
+                <div ref="minute-selector"
+                     class="selector-wrapper">
+                  <div v-for="minute in minutes"
+                       :key="`minute-${minute}`"
+                       :ref="`minute-${minute}`"
+                       :class="{ selected: minute === datetime.minute && selectors.minute }"
+                       @click="select('minute', minute, true)">
+                    {{ minute }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="arrow" @click="move('minute', false)">
+                <arrow direction="down"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="done-button" @click="done('time')">
+            Done
+          </div>
         </template>
 
       </div>
@@ -154,17 +189,19 @@ export default {
         year: null,
         month: null,
         date: null,
-        time: null, // Remove this one
-        hour: null
+        hour: null,
+        minute: null
       },
       selectors: {
         year: false,
         month: false,
-        hour: false
+        hour: false,
+        minute: false
       },
       vFormat: 'yyyy-MM-dd',
       dFormat: 'd MMM yyyy',
-      hours: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
+      hours: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
+      minutes: []
     }
   },
   props: {
@@ -193,11 +230,15 @@ export default {
     for (let i = 1900; i <= 2050; i++) {
       this.years.push(i)
     }
+
+    for (let i = 0; i < 60; i++) {
+      this.minutes.push(i.toString().length === 1 ? `0${i}` : i);
+    }
   },
   mounted() {
     if (this.type === 'time') {
-      this.vFormat = "H:m";
-      this.dFormat = "H:m";
+      this.vFormat = "HH:mm";
+      this.dFormat = "HH:mm";
     }
 
     if (this.valueFormat)
@@ -210,7 +251,7 @@ export default {
       this.$emit('display', format(new Date(this.value), this.dFormat));
 
     if (this.value && this.type === 'time')
-      this.$emit('display', this.value);
+      this.initTime();
   },
   watch: {
     open(n) {
@@ -241,14 +282,31 @@ export default {
       this.createCalendar(this.datetime.year, this.datetime.month);
     },
     initTime() {
-      // if (this.value) {
-      //   this.datetime.time = this.value;
-      //   this.datetime.hour = '00';
-      // }
+      if (this.value) {
+        let h = new Date('1971-01-01 ' + this.value).getHours().toString();
+        this.datetime.hour = h.length === 1 ? `0${h}` : h;
+        let m = new Date('1971-01-01 ' + this.value).getMinutes().toString();
+        this.datetime.minute = m.length === 1 ? `0${m}` : m;
+
+        this.updateValue();
+      }
+    },
+    done(type) {
+      if (type === 'time') {
+        this.updateValue();
+        this.toggle();
+      }
     },
     updateValue() {
-      this.$emit('input', format(new Date(this.datetime.year, this.datetime.month-1, this.datetime.date), this.vFormat));
-      this.$emit('display', format(new Date(this.datetime.year, this.datetime.month-1, this.datetime.date), this.dFormat));
+      if (this.type === 'date') {
+        this.$emit('input', format(new Date(this.datetime.year, this.datetime.month-1, this.datetime.date), this.vFormat));
+        this.$emit('display', format(new Date(this.datetime.year, this.datetime.month-1, this.datetime.date), this.dFormat));
+      }
+
+      if (this.type === 'time') {
+        this.$emit('input', format(new Date(`1971-01-01 ${this.datetime.hour}:${this.datetime.minute}`), this.vFormat));
+        this.$emit('display', format(new Date(`1971-01-01 ${this.datetime.hour}:${this.datetime.minute}`), this.dFormat));
+      }
     },
     scrollTo(el, to) {
       this.$refs[el].scrollTo({top: to})
@@ -407,9 +465,33 @@ export default {
       background-color: #e6e6e6;
     }
 
+    .done-button {
+      text-align: center;
+      cursor: pointer;
+    }
+
     .selected {
       background: #7367f0;
       color: white;
+    }
+
+    .time-selectors {
+      display: flex;
+      justify-content: center;
+
+      .selector {
+        width: 80px;
+        height: 120px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 0;
+
+        .selector-field {
+          width: 80px !important;
+        }
+      }
     }
 
     .selector {

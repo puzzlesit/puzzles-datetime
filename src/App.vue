@@ -34,7 +34,7 @@ export default { // This page is only for testing
     return {
       date: '2022-10-09',
       displayDate: '',
-      time: '12:25',
+      time: '1:44',
       displayTime: ''
     }
   },
