@@ -290,6 +290,18 @@ export default {
       if (n && this.type === 'datetime') {
         this.initDatetime();
       }
+    },
+    value(n, o) {
+      if (n && !o) {
+        if (this.value && this.type === 'date')
+          this.$emit('display', format(new Date(this.value), this.dFormat));
+
+        if (this.value && this.type === 'time')
+          this.initTime();
+
+        if (this.value && this.type === 'datetime')
+          this.initDatetime();
+      }
     }
   },
   methods: {
