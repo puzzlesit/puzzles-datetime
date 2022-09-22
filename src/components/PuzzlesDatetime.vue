@@ -1,7 +1,7 @@
 <template>
   <div :key="`puzzles-datetime-${key}`">
     <div class="puzzles-slot-wrapper" @click="toggle">
-      <slot :display="displayValue" />
+      <slot />
     </div>
 
     <div v-if="open"
@@ -174,11 +174,6 @@ export default {
       }
     }
   },
-  computed: {
-    displayValue() {
-        return this.value ? format(new Date(this.datetime.year, this.datetime.month-1, this.datetime.date), this.displayFormat) : null;
-    }
-  },
   methods: {
     init() {
       if (this.value) {
@@ -197,6 +192,7 @@ export default {
     },
     updateValue() {
       this.$emit('input', format(new Date(this.datetime.year, this.datetime.month-1, this.datetime.date), this.valueFormat));
+      this.$emit('display', format(new Date(this.datetime.year, this.datetime.month-1, this.datetime.date), this.displayFormat));
     },
     transform(el, y) {
       this.$refs[el].style.transform = `translateY(${y}px)`;

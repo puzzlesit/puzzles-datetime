@@ -1,12 +1,10 @@
 <template>
   <div id="app">
-    <puzzles-datetime v-model="date">
-      <template slot-scope="puzzlesDatetime">
+    <puzzles-datetime v-model="date" @display="displayDate = arguments[0]">
         <input type="text"
-               v-model="puzzlesDatetime.display"
+               v-model="displayDate"
                placeholder="Select a date"
                readonly>
-      </template>
     </puzzles-datetime>
 
     <br>
@@ -21,6 +19,7 @@ export default { // This page is only for testing
   data() {
     return {
       date: '',
+      displayDate: ''
     }
   },
   components: {
