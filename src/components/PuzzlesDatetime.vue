@@ -157,10 +157,8 @@ export default {
     }
   },
   mounted() {
-    if (this.open) {
-      // This was done for testing purposes
-      this.init();
-    }
+    if (this.value)
+      this.$emit('display', format(new Date(this.value), this.displayFormat));
   },
   watch: {
     open(n) {
@@ -184,6 +182,8 @@ export default {
         this.datetime.year = new Date().getFullYear();
         this.datetime.month = new Date().getMonth() + 1;
       }
+
+      console.log('test')
 
       this.createCalendar(this.datetime.year, this.datetime.month);
 

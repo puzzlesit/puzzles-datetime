@@ -18,7 +18,7 @@ export default { // This page is only for testing
   name: 'App',
   data() {
     return {
-      date: '',
+      date: '2022-10-09',
       displayDate: ''
     }
   },
