@@ -183,7 +183,7 @@ export default {
       this.transform('months-wrapper', -this.$refs[this.datetime.month][0].offsetTop);
     },
     updateValue() {
-      this.$emit('input', `${this.datetime.year}-${this.datetime.month}-${this.datetime.date}`);
+      this.$emit('input', `${this.datetime.year}-${this.datetime.month.toString().length === 1 ? ('0' + this.datetime.month) : this.datetime.month}-${this.datetime.date.toString().length === 1 ? ('0' + this.datetime.date) : this.datetime.date}`);
     },
     transform(el, y) {
       this.$refs[el].style.transform = `translateY(${y}px)`;
@@ -231,7 +231,6 @@ export default {
         this.open = false; // Close the modal when date has been selected
       } else {
         this.transform(`${type}s-wrapper`, -this.$refs[value][0].offsetTop);
-        console.log(this.$refs.calendar)
         this.createCalendar(this.datetime.year, this.datetime.month); // If year or month are changed, update calendar view
       }
     },
@@ -284,10 +283,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .puzzles-slot-wrapper {
   cursor: pointer;
 }
+
 .puzzles-datetime-wrapper {
   position: fixed;
   top: 0;
@@ -298,95 +298,117 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-.puzzles-datetime-wrapper .background {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-  background: rgba(75, 85, 99, 0.75);
-  z-index: 1;
-}
-.puzzles-datetime-wrapper .puzzles-datetime {
-  position: relative;
-  background: white;
-  z-index: 100;
-  margin: auto;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
-  -webkit-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
-  -moz-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
-}
-.puzzles-datetime-wrapper .puzzles-datetime table {
-  border-collapse: collapse;
-  width: 100%;
-  font-size: 1rem;
-}
-.puzzles-datetime-wrapper .puzzles-datetime td, .puzzles-datetime-wrapper .puzzles-datetime th {
-  border: 1px solid #797f8a;
-  padding: 0.5rem;
-  text-align: center;
-  cursor: pointer;
-}
-.puzzles-datetime-wrapper .puzzles-datetime th {
-  font-weight: bold;
-  background-color: #e6e6e6;
-}
-.puzzles-datetime-wrapper .puzzles-datetime .selected {
-  background: #7367f0;
-  color: white;
-}
-.puzzles-datetime-wrapper .puzzles-datetime .year, .puzzles-datetime-wrapper .puzzles-datetime .month {
-  display: flex;
-  justify-content: space-between;
-  height: 2rem;
-  /*padding: 0.5rem;*/
-  line-height: 2rem;
-}
-.puzzles-datetime-wrapper .puzzles-datetime .year .arrow, .puzzles-datetime-wrapper .puzzles-datetime .month .arrow {
-  height: 2rem;
-  padding: 0 0.5rem;
-  cursor: pointer;
-}
-.puzzles-datetime-wrapper .puzzles-datetime .year .wrapper, .puzzles-datetime-wrapper .puzzles-datetime .month .wrapper {
-  background: white;
-  height: 2rem;
-  line-height: 2rem;
-  z-index: 100;
-  overflow: hidden;
-  position: relative;
-  border-radius: 0.5rem;
-}
-.puzzles-datetime-wrapper .puzzles-datetime .year .wrapper .years-wrapper, .puzzles-datetime-wrapper .puzzles-datetime .month .wrapper .years-wrapper, .puzzles-datetime-wrapper .puzzles-datetime .year .wrapper .months-wrapper, .puzzles-datetime-wrapper .puzzles-datetime .month .wrapper .months-wrapper {
-  border-radius: 0.5rem;
-  transform: translateY(0);
-}
-.puzzles-datetime-wrapper .puzzles-datetime .year .wrapper div, .puzzles-datetime-wrapper .puzzles-datetime .month .wrapper div {
-  cursor: pointer;
-  text-align: center;
-  width: 150px;
-  font-size: 1.5rem;
-}
-.puzzles-datetime-wrapper .puzzles-datetime .year .expand, .puzzles-datetime-wrapper .puzzles-datetime .month .expand {
-  height: 24rem;
-  z-index: 110;
-  box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
-  -webkit-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
-  -moz-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
-}
-.puzzles-datetime-wrapper .puzzles-datetime .year .expand div, .puzzles-datetime-wrapper .puzzles-datetime .month .expand div {
-  font-size: 1rem;
-}
-.puzzles-datetime-wrapper .puzzles-datetime .year .years-wrapper {
-  flex-direction: column-reverse;
-  display: flex;
-}
-.puzzles-datetime-wrapper .puzzles-datetime .year .expand {
-  overflow: scroll;
-  transform: translateY(-3rem);
-}
-.puzzles-datetime-wrapper .puzzles-datetime .month .expand {
-  transform: translateY(-6rem);
+
+  .background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    background: rgba(75, 85, 99, 0.75);
+    z-index: 1;
+  }
+
+  .puzzles-datetime {
+    position: relative;
+    background: white;
+    z-index: 100;
+    margin: auto;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
+    -webkit-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
+    -moz-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    td {
+      border: 1px solid #797f8a;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    th {
+      border: 1px solid #797f8a;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: bold;
+      background-color: #e6e6e6;
+    }
+
+    .selected {
+      background: #7367f0;
+      color: white;
+    }
+
+    .year, .month {
+      display: flex;
+      justify-content: space-between;
+      height: 40px;
+      padding-bottom: 20px;
+      line-height: 40px;
+    }
+
+    .year .arrow, .month .arrow {
+      height: 40px;
+      padding: 0 10px;
+      cursor: pointer;
+    }
+
+    .year .wrapper, .month .wrapper {
+      background: white;
+      height: 40px;
+      line-height: 40px;
+      z-index: 100;
+      overflow: hidden;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .year .wrapper .years-wrapper, .month .wrapper .years-wrapper, .year .wrapper .months-wrapper, .month .wrapper .months-wrapper {
+      border-radius: 10px;
+      transform: translateY(0);
+    }
+
+    .year .wrapper div, .month .wrapper div {
+      cursor: pointer;
+      text-align: center;
+      width: 150px;
+      font-size: 24px;
+    }
+
+    .year .expand, .month .expand {
+      height: 480px;
+      z-index: 110;
+      box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
+      -webkit-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
+      -moz-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
+    }
+
+    .year .expand div, .month .expand div {
+      font-size: 16px;
+    }
+
+    .year {
+      .years-wrapper {
+        flex-direction: column-reverse;
+        display: flex;
+      }
+
+      .expand {
+        overflow: scroll;
+        transform: translateY(-50px);
+      }
+    }
+
+    .month .expand {
+      transform: translateY(-120px);
+    }
+  }
 }
 </style>
