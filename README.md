@@ -1,4 +1,5 @@
 # Puzzles Datetime
+
 ####Simple Datetime Picker
 
 ---
@@ -63,9 +64,11 @@ but formatted display value is stored in ``displayDateValue``.
 
 ---
 ###Note
+
 This is the beta version of the puzzles-datetime, there will be more features coming out soon.
 
-##Contact
+###Contact
+
 Nermedin Dzekovic, Puzzles IT <br>
 nermedin@puzzlesit.com
 
