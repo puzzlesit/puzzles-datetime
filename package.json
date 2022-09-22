@@ -33,7 +33,6 @@
   },
   "main": "dist/puzzles-datetime.common.js",
   "dependencies": {
-    "core-js": "^3.8.3",
     "date-fns": "^2.29.3",
     "vue": "^2.6.14"
   },
