@@ -488,8 +488,8 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   z-index: 999999;
   display: flex;
   flex-direction: column;
@@ -500,7 +500,7 @@ export default {
     width: 100%;
     height: 100%;
     cursor: pointer;
-    background: rgba(75, 85, 99, 0.75);
+    //background: rgba(75, 85, 99, 0.75);
     z-index: 1;
   }
 
@@ -595,6 +595,9 @@ export default {
         height: 40px;
         padding: 0 10px;
         cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
       }
 
       .wrapper {
