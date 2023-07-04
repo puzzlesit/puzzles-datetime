@@ -517,8 +517,8 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   z-index: 999999;
   display: flex;
   flex-direction: column;
@@ -549,8 +549,8 @@ export default {
     background: white;
     z-index: 100;
     margin: auto;
-    border-radius: 10px;
-    padding: 20px;
+    border-radius: .5rem;
+    padding: 1rem;
     box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
     -webkit-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
     -moz-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
@@ -558,19 +558,19 @@ export default {
     table {
       border-collapse: collapse;
       width: 100%;
-      font-size: 16px;
+      font-size: 1rem;
     }
 
     td {
       border: 1px solid #797f8a;
-      padding: 10px;
+      padding: .5rem;
       text-align: center;
       cursor: pointer;
     }
 
     th {
       border: 1px solid #797f8a;
-      padding: 10px;
+      padding: 0.5rem;
       text-align: center;
       cursor: pointer;
       font-weight: bold;
@@ -580,9 +580,10 @@ export default {
     .buttons {
       display: flex;
       justify-content: center;
+      margin-top: 1rem;
 
       .button {
-        padding: 10px;
+        padding: 0.5rem;
         text-align: center;
         cursor: pointer;
       }
@@ -599,8 +600,8 @@ export default {
       justify-content: center;
 
       .selector {
-        width: 80px;
-        height: 120px;
+        width: 2rem;
+        height: 6rem;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -608,52 +609,55 @@ export default {
         padding-bottom: 0;
 
         .selector-field {
-          width: 80px !important;
+          width: 2rem !important;
         }
       }
     }
 
     .selector {
       display: flex;
-      justify-content: space-between;
-      height: 40px;
-      padding-bottom: 20px;
-      line-height: 40px;
+      justify-content: center;
+      height: 3rem;
+      padding: 0.25rem 1rem;
+      line-height: 2rem;
 
       .selector-field {
         cursor: pointer;
         text-align: center;
-        width: 150px;
-        font-size: 24px;
-        height: 40px;
-        padding: 0 10px;
-        line-height: 40px;
+        width: 5rem;
+        font-size: 1.2rem;
+        height: 2rem;
+        padding: 0 .5rem;
+        line-height: 2rem;
         position: relative;
       }
 
       .arrow {
-        height: 40px;
-        padding: 0 10px;
+        height: 1rem;
+        padding: .5rem;
         cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
       }
 
       .wrapper {
         position: absolute;
-        height: calc(100% + 80px);
+        height: calc(100% + 6rem);
         background: white;
         top: 50%;
         left: 50%;
         transform: translateX(-50%) translateY(-50%);
-        min-height: 480px;
-        max-height: 480px;
+        min-height: 24rem;
+        max-height: 24rem;
         z-index: 100;
-        border-radius: 10px;
+        border-radius: .5rem;
         border: 1px solid gray;
 
         .selector-wrapper {
           position: relative;
           height: 100%;
-          border-radius: 10px;
+          border-radius: .5rem;
           transform: translateY(0);
           overflow: auto;
         }
@@ -661,8 +665,8 @@ export default {
         div {
           cursor: pointer;
           text-align: center;
-          width: 150px;
-          font-size: 24px;
+          width: 10rem;
+          font-size: 1.2rem;
         }
       }
     }
