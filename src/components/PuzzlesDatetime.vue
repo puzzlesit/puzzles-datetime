@@ -28,16 +28,19 @@
                 {{ datetime.year }}
               </div>
 
-              <div v-show="selectors.year"
-                   class="wrapper">
-                <div ref="year-selector"
-                     class="selector-wrapper">
-                  <div v-for="year in years"
-                       :key="`year-${year}`"
-                       :ref="`year-${year}`"
-                       :class="{ selected: year === datetime.year && selectors.year }"
-                       @click="select('year', year, true)">
-                    {{ year }}
+              <div v-show="selectors.year">
+                <div class="background-selector"
+                     @click.self="closeSelector('year')"></div>
+                <div class="wrapper">
+                  <div ref="year-selector"
+                       class="selector-wrapper">
+                    <div v-for="year in years"
+                         :key="`year-${year}`"
+                         :ref="`year-${year}`"
+                         :class="{ selected: year === datetime.year && selectors.year }"
+                         @click="select('year', year, true)">
+                      {{ year }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -59,16 +62,19 @@
                 {{ monthNames[datetime.month - 1] }}
               </div>
 
-              <div v-show="selectors.month"
-                   class="wrapper">
-                <div ref="month-selector"
-                     class="selector-wrapper">
-                  <div v-for="month in months"
-                       :key="`month-${month}`"
-                       :ref="`month-${month}`"
-                       :class="{ selected: month === datetime.month && selectors.month }"
-                       @click="select('month', month, true)">
-                    {{ monthNames[month - 1] }}
+              <div v-show="selectors.month">
+                <div class="background-selector"
+                     @click.self="closeSelector('month')"></div>
+                <div class="wrapper">
+                  <div ref="month-selector"
+                       class="selector-wrapper">
+                    <div v-for="month in months"
+                         :key="`month-${month}`"
+                         :ref="`month-${month}`"
+                         :class="{ selected: month === datetime.month && selectors.month }"
+                         @click="select('month', month, true)">
+                      {{ monthNames[month - 1] }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -113,16 +119,19 @@
                 {{ datetime.hour }}
               </div>
 
-              <div v-show="selectors.hour"
-                   class="wrapper">
-                <div ref="hour-selector"
-                     class="selector-wrapper">
-                  <div v-for="hour in hours"
-                       :key="`hour-${hour}`"
-                       :ref="`hour-${hour}`"
-                       :class="{ selected: hour === datetime.hour && selectors.hour }"
-                       @click="select('hour', hour, true)">
-                    {{ hour }}
+              <div v-show="selectors.hour">
+                <div class="background-selector"
+                     @click.self="closeSelector('hour')"></div>
+                <div class="wrapper">
+                  <div ref="hour-selector"
+                       class="selector-wrapper">
+                    <div v-for="hour in hours"
+                         :key="`hour-${hour}`"
+                         :ref="`hour-${hour}`"
+                         :class="{ selected: hour === datetime.hour && selectors.hour }"
+                         @click="select('hour', hour, true)">
+                      {{ hour }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -144,16 +153,19 @@
                 {{ datetime.minute }}
               </div>
 
-              <div v-show="selectors.minute"
-                   class="wrapper">
-                <div ref="minute-selector"
-                     class="selector-wrapper">
-                  <div v-for="minute in minutes"
-                       :key="`minute-${minute}`"
-                       :ref="`minute-${minute}`"
-                       :class="{ selected: minute === datetime.minute && selectors.minute }"
-                       @click="select('minute', minute, true)">
-                    {{ minute }}
+              <div v-show="selectors.minute">
+                <div class="background-selector"
+                     @click.self="closeSelector('minute')"></div>
+                <div class="wrapper">
+                  <div ref="minute-selector"
+                       class="selector-wrapper">
+                    <div v-for="minute in minutes"
+                         :key="`minute-${minute}`"
+                         :ref="`minute-${minute}`"
+                         :class="{ selected: minute === datetime.minute && selectors.minute }"
+                         @click="select('minute', minute, true)">
+                      {{ minute }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -447,6 +459,9 @@ export default {
         }, 10);
       }
     },
+    closeSelector(type) {
+      this.selectors[type] = !this.selectors[type];
+    },
     createCalendar(year, month) {
       this.dates = [];
       let mon = month - 1; // months in JS are 0..11, not 1..12
@@ -517,6 +532,17 @@ export default {
     //background: rgba(75, 85, 99, 0.75);
     z-index: 1;
   }
+
+  .background-selector {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(128, 128, 128, 0);
+    z-index: 1;
+  }
+
 
   .puzzles-datetime {
     position: relative;
