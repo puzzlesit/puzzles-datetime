@@ -515,24 +515,24 @@ export default {
     -webkit-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
     -moz-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
 
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    font-size: 1rem;
-    }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 1rem;
+      }
 
-  td,th {
-    border: 1px solid #797f8a;
-    padding: 0.5rem;
-    text-align: center;
-    cursor: pointer;
-    width: 2.1875rem;
-    }
+    td,th {
+        border: 1px solid #797f8a;
+        padding: 0.5rem;
+        text-align: center;
+        cursor: pointer;
+        width: 2.1875rem;
+      }
 
-  th {
-    font-weight: bold;
-    background-color: #e6e6e6;
-    }
+    th {
+        font-weight: bold;
+        background-color: #e6e6e6;
+      }
 
     .buttons {
       display: flex;
