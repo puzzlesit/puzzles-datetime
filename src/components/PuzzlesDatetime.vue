@@ -184,16 +184,16 @@
             Confirm
           </div>
           <div class="right-controllers">
-          <div class="button"
-               @click="done('clear')">
-            Clear
-          </div>
-          <div class="button"
-               @click="done('close')">
-            Close
+            <div class="button"
+                 @click="done('clear')">
+              Clear
+            </div>
+            <div class="button"
+                 @click="done('close')">
+              Close
+            </div>
           </div>
         </div>
-      </div>
 
       </div>
     </div>
@@ -377,7 +377,7 @@ export default {
         this.$emit('display', null);
         this.toggle();
       }
-      if(type === 'close'){
+      if (type === 'close') {
         this.toggle();
       }
     },
@@ -508,9 +508,8 @@ export default {
   cursor: pointer;
 }
 
-.right-controllers{
+.right-controllers {
   display: flex;
-  flex-direction: row;
 }
 
 .puzzles-datetime-wrapper {
