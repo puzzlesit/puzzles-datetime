@@ -169,13 +169,19 @@
         <div class="buttons">
           <div class="button"
                @click="done('time')">
-            Done
+            Confirm
           </div>
+          <div class="right-controllers">
           <div class="button"
                @click="done('clear')">
             Clear
           </div>
+          <div class="button"
+               @click="done('close')">
+            Close
+          </div>
         </div>
+      </div>
 
       </div>
     </div>
@@ -359,6 +365,9 @@ export default {
         this.$emit('display', null);
         this.toggle();
       }
+      if(type === 'close'){
+        this.toggle();
+      }
     },
     updateValue() {
       if (this.type === 'date') {
@@ -482,6 +491,11 @@ export default {
 <style lang="scss" scoped>
 .puzzles-slot-wrapper {
   cursor: pointer;
+}
+
+.right-controllers{
+  display: flex;
+  flex-direction: row;
 }
 
 .puzzles-datetime-wrapper {
