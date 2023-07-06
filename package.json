@@ -1,7 +1,7 @@
 {
   "name": "puzzles-datetime",
   "description": "Puzzles Datetime picker.",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "private": false,
   "author": "Nermedin Dzekovic <nermedin@puzzlesit.com>",
   "repository": {
