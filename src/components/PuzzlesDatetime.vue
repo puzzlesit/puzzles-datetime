@@ -560,18 +560,15 @@ export default {
       font-size: 1rem;
     }
 
-    td {
-      border: 1px solid #797f8a;
-      padding: .5rem;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    th {
+    td, th {
       border: 1px solid #797f8a;
       padding: 0.5rem;
       text-align: center;
       cursor: pointer;
+      width: 2.1875rem;
+    }
+
+    th {
       font-weight: bold;
       background-color: #e6e6e6;
     }
