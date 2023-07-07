@@ -1,16 +1,16 @@
 <template>
   <div :key="`puzzles-datetime-${key}`">
-    <div class="puzzles-slot-wrapper" @click="toggle" :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }">
+    <div class="puzzles-slot-wrapper" @click="toggle">
       <slot/>
     </div>
 
-    <div v-if="open" class="puzzles-datetime-wrapper" :style="{ backgroundColor: customStyle.calendarHeaderBackgroundColor }">
-      <div class="background" @click.self="toggle" :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"></div>
+    <div v-if="open" class="puzzles-datetime-wrapper">
+      <div class="background" @click.self="toggle" :style="{ backgroundColor: customStyle.backgroundColor, opacity: customStyle.backgroundLayerOpacity }"></div>
 
-      <div class="puzzles-datetime" :style="{ maxWidth: customStyle.pickerMaxWidth, fontSize: customStyle.fontSize }">
+      <div class="puzzles-datetime" :style="{ fontSize: customStyle.fontSize, backgroundColor: customStyle.backgroundColor}">
         <template v-if="type === 'date' || type === 'datetime'">
           <template v-if="simple">
-            <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }">
+            <div>
               Simple Calendar - Not implemented yet!
             </div>
           </template>
@@ -20,7 +20,7 @@
                 <arrow direction="left"/>
               </div>
 
-              <div class="selector-field" @click="openSelector('year', true)" :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }">
+              <div class="selector-field" @click="openSelector('year', true)" :style="{ calendarDatesBackgroundColor: customStyle.calendarDatesBackgroundColor, color: customStyle.textColor }">
                 {{ datetime.year }}
               </div>
 
@@ -60,14 +60,14 @@
             </div>
 
             <div>
-              <table :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }">
+              <table :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor}">
                 <tr>
-                  <th v-for="day in days" :key="day">
+                  <th v-for="day in days" :key="day" :style="{backgroundColor: customStyle.calendarHeaderBackgroundColor, fontSize: customStyle.fontSize}">
                     {{ day }}
                   </th>
                 </tr>
                 <tr v-for="(row, i) in dates" :key="`row-${i}`">
-                  <td v-for="(d, j) in row" :key="`col-${i}-${j}`" :class="{ selected: d === datetime.date }" @click="select(type, d)" :style="{ backgroundColor: d === datetime.date ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: customStyle.textColor }">
+                  <td v-for="(d, j) in row" :key="`col-${i}-${j}`" :class="{ selected: d === datetime.date }" @click="select(type, d)" :style="{ backgroundColor: d === datetime.date ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: customStyle.textColor, fontSize: customStyle.fontSize }">
                     {{ d }}
                   </td>
                 </tr>
@@ -145,13 +145,13 @@ export default {
   data() {
     return {
       customStyle: {
-        backgroundColor: 'white',
-        textColor: 'black',
-        calendarHeaderBackgroundColor: '#e5e5e5',
-        calendarDatesBackgroundColor: 'white',
-        calendarSelectedBackgroundColor: '#736cf0',
-        backgroundLayerBackgroundColor: 'red',
-        backgroundLayerOpacity: 5,
+        backgroundColor: 'brown',
+        textColor: 'yellow',
+        calendarHeaderBackgroundColor: 'green',
+        calendarDatesBackgroundColor: 'red',
+        calendarSelectedBackgroundColor: 'black',
+        backgroundLayerBackgroundColor: 'black',
+        backgroundLayerOpacity: 0,
         pickerMaxWidth: '320px',
         fontSize: '1rem'
       },
@@ -444,7 +444,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .puzzles-slot-wrapper {
   cursor: pointer;
 }
