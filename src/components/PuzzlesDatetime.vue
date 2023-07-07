@@ -33,7 +33,8 @@
 
               <div v-show="selectors.year" 
                    class="wrapper">
-                <div ref="year-selector" class="selector-wrapper">
+                <div ref="year-selector" 
+                     class="selector-wrapper">
                   <div v-for="year in years" 
                        :key="`year-${year}`" 
                        :ref="`year-${year}`" 
