@@ -47,7 +47,7 @@ export default { // This page is only for testing
   data() {
     return {
       customStyle: {
-        backgroundColor: 'white',
+        backgroundColor: 'red',
         textColor: 'black',
         calendarHeaderBackgroundColor: '#e5e5e5',
         calendarDatesBackgroundColor: 'white',

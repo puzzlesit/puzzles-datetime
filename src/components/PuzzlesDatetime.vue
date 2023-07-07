@@ -5,7 +5,7 @@
     </div>
 
     <div v-if="open" class="puzzles-datetime-wrapper">
-      <div class="background" @click.self="toggle" :style="{ backgroundColor: customStyle.backgroundColor, opacity: customStyle.backgroundLayerOpacity }"></div>
+      <div class="background" @click.self="toggle" :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"></div>
 
       <div class="puzzles-datetime" :style="{ fontSize: customStyle.fontSize, backgroundColor: customStyle.backgroundColor}">
         <template v-if="type === 'date' || type === 'datetime'">
@@ -144,17 +144,6 @@ export default {
   name: 'PuzzlesDatetime',
   data() {
     return {
-      customStyle: {
-        backgroundColor: 'brown',
-        textColor: 'yellow',
-        calendarHeaderBackgroundColor: 'green',
-        calendarDatesBackgroundColor: 'red',
-        calendarSelectedBackgroundColor: 'black',
-        backgroundLayerBackgroundColor: 'black',
-        backgroundLayerOpacity: 0,
-        pickerMaxWidth: '320px',
-        fontSize: '1rem'
-      },
       open: false,
       key: 0,
       years: [], // TODO: Make options for past and future dates
@@ -182,6 +171,20 @@ export default {
     }
   },
   props: {
+    customStyle: {
+      type: Object,
+      default: () => ({
+        backgroundColor: 'white',
+        textColor: 'black',
+        calendarHeaderBackgroundColor: '#e5e5e5',
+        calendarDatesBackgroundColor: 'white',
+        calendarSelectedBackgroundColor: '#736cf0',
+        backgroundLayerBackgroundColor: 'black',
+        backgroundLayerOpacity: 0,
+        pickerMaxWidth: '320px',
+        fontSize: '1rem'
+      })
+    },
     value: String, // Validate
     type: {
       type: String,
