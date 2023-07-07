@@ -185,7 +185,7 @@
 <script>
 import Arrow from './Arrow';
 import {format} from 'date-fns'
-import languageData from '../languages.json'
+import languageData from '../components/config/languages.json'
 
 export default {
   name: 'PuzzlesDatetime',
