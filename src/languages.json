@@ -1,0 +1,63 @@
+{
+    "eng": {
+      "buttons": {
+        "confirm": "Confirm",
+        "clear": "Clear",
+        "close": "Close"
+      },
+      "langmonths": {
+        "jan": "Jan",
+        "feb": "Feb",
+        "mar": "Mar",
+        "apr": "Apr",
+        "may": "May",
+        "jun": "Jun",
+        "jul": "Jul",
+        "aug": "Aug",
+        "sep": "Sep",
+        "oct": "Oct",
+        "nov": "Nov",
+        "dec": "Dec"
+      },
+      "days": {
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat",
+        "sun": "Sun"
+      }
+    },
+    "ba": {
+      "buttons": {
+        "confirm": "Potvrdi",
+        "clear": "Obriši",
+        "close": "Zatvori"
+      },
+      "months": {
+        "jan": "Januar",
+        "feb": "Februar",
+        "mar": "Mart",
+        "apr": "April",
+        "may": "Maj",
+        "jun": "Juni",
+        "jul": "Juli",
+        "aug": "August",
+        "sep": "Septembar",
+        "oct": "Oktobar",
+        "nov": "Novembar",
+        "dec": "Decembar"
+      },
+      "days": {
+        "mon": "Pon",
+        "tue": "Uto",
+        "wed": "Sri",
+        "thu": "Čet",
+        "fri": "Pet",
+        "sat": "Sub",
+        "sun": "Ned"
+      }
+    }
+  }
+  

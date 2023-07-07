@@ -169,11 +169,11 @@
         <div class="buttons">
           <div class="button"
                @click="done('time')">
-            Done
+            {{ languageData.buttons.confirm }}
           </div>
           <div class="button"
                @click="done('clear')">
-            Clear
+               {{ languageData.buttons.clear }}
           </div>
         </div>
 
@@ -185,11 +185,13 @@
 <script>
 import Arrow from './Arrow';
 import {format} from 'date-fns'
+import languageData from '../languages.json'
 
 export default {
   name: 'PuzzlesDatetime',
   data() {
     return {
+      languageData: {},
       open: false,
       key: 0,
       years: [], // TODO: Make options for past and future dates
@@ -217,6 +219,11 @@ export default {
     }
   },
   props: {
+    language:{
+      type: String,
+      default: 'ba',
+      validator: value => ['eng', 'ba'].includes(value),
+    },
     value: String, // Validate
     type: {
       type: String,
@@ -239,6 +246,7 @@ export default {
     Arrow
   },
   created() {
+    this.languageData = languageData[this.language];
     // TODO: Handle these more efficiently
     for (let i = 1900; i <= 2050; i++) {
       this.years.push(i)
