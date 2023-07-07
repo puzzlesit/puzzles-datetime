@@ -121,7 +121,8 @@
                 {{ datetime.hour }}
               </div>
 
-              <div v-show="selectors.hour" class="wrapper">
+              <div v-show="selectors.hour" 
+                   class="wrapper">
                 <div ref="hour-selector" 
                      class="selector-wrapper">
                   <div v-for="hour in hours" :key="`hour-${hour}`" 
@@ -151,7 +152,8 @@
                 {{ datetime.minute }}
               </div>
 
-              <div v-show="selectors.minute" class="wrapper">
+              <div v-show="selectors.minute" 
+                   class="wrapper">
                 <div ref="minute-selector" 
                      class="selector-wrapper">
                   <div v-for="minute in minutes" 
