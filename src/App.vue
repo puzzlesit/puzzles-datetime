@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <puzzles-datetime :custom-style="{calendarHeaderBackgroundColor: 'red'}" v-model="date" @display="displayDate = arguments[0]">
+    <puzzles-datetime :custom-style="{calendarHeaderBackgroundColor: 'red', textColor: 'green'}" v-model="date" @display="displayDate = arguments[0]">
         <input type="text"
                v-model="displayDate"
                placeholder="Select a date"
