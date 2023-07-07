@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <puzzles-datetime :custom-style="customStyle" v-model="date" @display="displayDate = arguments[0]">
+    <puzzles-datetime :custom-style="{calendarHeaderBackgroundColor: 'red'}" v-model="date" @display="displayDate = arguments[0]">
         <input type="text"
                v-model="displayDate"
                placeholder="Select a date"
@@ -46,17 +46,6 @@ export default { // This page is only for testing
   name: 'App',
   data() {
     return {
-      customStyle: {
-        backgroundColor: 'red',
-        textColor: 'black',
-        calendarHeaderBackgroundColor: '#e5e5e5',
-        calendarDatesBackgroundColor: 'white',
-        calendarSelectedBackgroundColor: '#736cf0',
-        backgroundLayerBackgroundColor: 'black',
-        backgroundLayerOpacity: 0,
-        pickerMaxWidth: '320px',
-        fontSize: '1rem'
-      },
       date: '2022-10-09',
       displayDate: '',
       time: '',
