@@ -1,63 +1,122 @@
 {
-    "eng": {
-      "buttons": {
-        "confirm": "Confirm",
-        "clear": "Clear",
-        "close": "Close"
-      },
-      "months": {
-        "jan": "Jan",
-        "feb": "Feb",
-        "mar": "Mar",
-        "apr": "Apr",
-        "may": "May",
-        "jun": "Jun",
-        "jul": "Jul",
-        "aug": "Aug",
-        "sep": "Sep",
-        "oct": "Oct",
-        "nov": "Nov",
-        "dec": "Dec"
-      },
-      "days": {
-        "mon": "Mon",
-        "tue": "Tue",
-        "wed": "Wed",
-        "thu": "Thu",
-        "fri": "Fri",
-        "sat": "Sat",
-        "sun": "Sun"
-      }
+  "eng": {
+    "buttons": {
+      "confirm": "Confirm",
+      "clear": "Clear",
+      "close": "Close"
     },
-    "ba": {
-      "buttons": {
-        "confirm": "Potvrdi",
-        "clear": "Obriši",
-        "close": "Zatvori"
-      },
-      "months": {
-        "jan": "Januar",
-        "feb": "Februar",
-        "mar": "Mart",
-        "apr": "April",
-        "may": "Maj",
-        "jun": "Juni",
-        "jul": "Juli",
-        "aug": "August",
-        "sep": "Septembar",
-        "oct": "Oktobar",
-        "nov": "Novembar",
-        "dec": "Decembar"
-      },
-      "days": {
-        "mon": "Pon",
-        "tue": "Uto",
-        "wed": "Sri",
-        "thu": "Čet",
-        "fri": "Pet",
-        "sat": "Sub",
-        "sun": "Ned"
-      }
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "May",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Aug",
+      "sep": "Sep",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Dec"
+    },
+    "days": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    }
+  },
+  "ba": {
+    "buttons": {
+      "confirm": "Potvrdi",
+      "clear": "Obriši",
+      "close": "Zatvori"
+    },
+    "months": {
+      "jan": "Januar",
+      "feb": "Februar",
+      "mar": "Mart",
+      "apr": "April",
+      "may": "Maj",
+      "jun": "Juni",
+      "jul": "Juli",
+      "aug": "August",
+      "sep": "Septembar",
+      "oct": "Oktobar",
+      "nov": "Novembar",
+      "dec": "Decembar"
+    },
+    "days": {
+      "mon": "Pon",
+      "tue": "Uto",
+      "wed": "Sri",
+      "thu": "Čet",
+      "fri": "Pet",
+      "sat": "Sub",
+      "sun": "Ned"
+    }
+  },
+  "fr": {
+    "buttons": {
+      "confirm": "Confirmer",
+      "clear": "Effacer",
+      "close": "Fermer"
+    },
+    "months": {
+      "jan": "Janv",
+      "feb": "Fév",
+      "mar": "Mar",
+      "apr": "Avr",
+      "may": "Mai",
+      "jun": "Juin",
+      "jul": "Juil",
+      "aug": "Août",
+      "sep": "Sept",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Déc"
+    },
+    "days": {
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mer",
+      "thu": "Jeu",
+      "fri": "Ven",
+      "sat": "Sam",
+      "sun": "Dim"
+    }
+  },
+  "ar": {
+    "buttons": {
+      "confirm": "تأكيد",
+      "clear": "مسح",
+      "close": "إغلاق"
+    },
+    "months": {
+      "jan": "يناير",
+      "feb": "فبراير",
+      "mar": "مارس",
+      "apr": "أبريل",
+      "may": "مايو",
+      "jun": "يونيو",
+      "jul": "يوليو",
+      "aug": "أغسطس",
+      "sep": "سبتمبر",
+      "oct": "أكتوبر",
+      "nov": "نوفمبر",
+      "dec": "ديسمبر"
+    },
+    "days": {
+      "mon": "الإثنين",
+      "tue": "الثلاثاء",
+      "wed": "الأربعاء",
+      "thu": "الخميس",
+      "fri": "الجمعة",
+      "sat": "السبت",
+      "sun": "الأحد"
     }
   }
-  
+}

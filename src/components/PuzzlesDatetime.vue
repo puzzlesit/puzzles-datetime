@@ -221,7 +221,7 @@ export default {
   props: {
     language:{
       type: String,
-      default: 'ba',
+      default: 'ar',
       validator: value => ['eng', 'ba'].includes(value),
     },
     value: String, // Validate
@@ -251,7 +251,7 @@ export default {
     this.days = Object.values(this.languageData.days);
 
     // TODO: Handle these more efficiently
-    
+
     for (let i = 1900; i <= 2050; i++) {
       this.years.push(i)
     }
