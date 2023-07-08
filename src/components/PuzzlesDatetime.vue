@@ -196,9 +196,9 @@ export default {
       key: 0,
       years: [], // TODO: Make options for past and future dates
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], // TODO: Make this as prop.
+      monthNames: [], // TODO: Make this as prop.
       dates: [],
-      days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], // TODO: Make this as prop.
+      days: [], // TODO: Make this as prop.
       datetime: {
         year: null,
         month: null,
@@ -247,7 +247,11 @@ export default {
   },
   created() {
     this.languageData = languageData[this.language];
+    this.monthNames = Object.values(this.languageData.months);
+    this.days = Object.values(this.languageData.days);
+
     // TODO: Handle these more efficiently
+    
     for (let i = 1900; i <= 2050; i++) {
       this.years.push(i)
     }
@@ -257,6 +261,8 @@ export default {
     }
   },
   mounted() {
+    this.fetchMonths();
+
     if (this.type === 'time') {
       this.vFormat = "HH:mm";
       this.dFormat = "HH:mm";
@@ -313,6 +319,16 @@ export default {
     }
   },
   methods: {
+    fetchMonths() {
+      fetch('./config/langauges.json')
+        .then(response => response.json())
+        .then(data => {
+          this.months = data.months;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
     // TODO: Use one universal init method for all
     init() {
       if (this.value) {
