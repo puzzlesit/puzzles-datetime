@@ -169,11 +169,11 @@
         <div class="buttons">
           <div class="button"
                @click="done('time')">
-            Done
+            {{ languageData.buttons.confirm }}
           </div>
           <div class="button"
                @click="done('clear')">
-            Clear
+               {{ languageData.buttons.clear }}
           </div>
         </div>
 
@@ -185,18 +185,20 @@
 <script>
 import Arrow from './Arrow';
 import {format} from 'date-fns'
+import languageData from '../components/config/languages.json'
 
 export default {
   name: 'PuzzlesDatetime',
   data() {
     return {
+      languageData: {},
       open: false,
       key: 0,
       years: [], // TODO: Make options for past and future dates
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], // TODO: Make this as prop.
+      monthNames: [], // TODO: Make this as prop.
       dates: [],
-      days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], // TODO: Make this as prop.
+      days: [], // TODO: Make this as prop.
       datetime: {
         year: null,
         month: null,
@@ -217,6 +219,11 @@ export default {
     }
   },
   props: {
+    language:{
+      type: String,
+      default: 'ar',
+      validator: value => ['eng', 'ba'].includes(value),
+    },
     value: String, // Validate
     type: {
       type: String,
@@ -239,7 +246,12 @@ export default {
     Arrow
   },
   created() {
+    this.languageData = languageData[this.language];
+    this.monthNames = Object.keys(this.monthNames).length > 0 ? Object.values(this.monthNames) : Object.values(this.languageData.months);
+    this.days = Object.values(this.languageData.days);
+
     // TODO: Handle these more efficiently
+
     for (let i = 1900; i <= 2050; i++) {
       this.years.push(i)
     }
@@ -249,6 +261,8 @@ export default {
     }
   },
   mounted() {
+    this.fetchMonths();
+
     if (this.type === 'time') {
       this.vFormat = "HH:mm";
       this.dFormat = "HH:mm";
@@ -305,6 +319,16 @@ export default {
     }
   },
   methods: {
+    fetchMonths() {
+      fetch('./config/langauges.json')
+        .then(response => response.json())
+        .then(data => {
+          this.months = data.months;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
     // TODO: Use one universal init method for all
     init() {
       if (this.value) {
@@ -488,8 +512,8 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   z-index: 999999;
   display: flex;
   flex-direction: column;
@@ -500,7 +524,7 @@ export default {
     width: 100%;
     height: 100%;
     cursor: pointer;
-    //background: rgba(75, 85, 99, 0.75);
+    background: rgba(75, 85, 99, 0.75);
     z-index: 1;
   }
 
@@ -509,8 +533,8 @@ export default {
     background: white;
     z-index: 100;
     margin: auto;
-    border-radius: .5rem;
-    padding: 1rem;
+    border-radius: 10px;
+    padding: 20px;
     box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
     -webkit-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
     -moz-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
@@ -518,19 +542,19 @@ export default {
     table {
       border-collapse: collapse;
       width: 100%;
-      font-size: 1rem;
+      font-size: 16px;
     }
 
     td {
       border: 1px solid #797f8a;
-      padding: .5rem;
+      padding: 10px;
       text-align: center;
       cursor: pointer;
     }
 
     th {
       border: 1px solid #797f8a;
-      padding: 0.5rem;
+      padding: 10px;
       text-align: center;
       cursor: pointer;
       font-weight: bold;
@@ -539,11 +563,10 @@ export default {
 
     .buttons {
       display: flex;
-      justify-content: space-between;
-      margin-top: 1rem;
+      justify-content: center;
 
       .button {
-        padding: 0.5rem;
+        padding: 10px;
         text-align: center;
         cursor: pointer;
       }
@@ -560,8 +583,8 @@ export default {
       justify-content: center;
 
       .selector {
-        width: 2rem;
-        height: 6rem;
+        width: 80px;
+        height: 120px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -569,55 +592,52 @@ export default {
         padding-bottom: 0;
 
         .selector-field {
-          width: 2rem !important;
+          width: 80px !important;
         }
       }
     }
 
     .selector {
       display: flex;
-      justify-content: center;
-      height: 3rem;
-      padding: 0.25rem 1rem;
-      line-height: 2rem;
+      justify-content: space-between;
+      height: 40px;
+      padding-bottom: 20px;
+      line-height: 40px;
 
       .selector-field {
         cursor: pointer;
         text-align: center;
-        width: 5rem;
-        font-size: 1.2rem;
-        height: 2rem;
-        padding: 0 .5rem;
-        line-height: 2rem;
+        width: 150px;
+        font-size: 24px;
+        height: 40px;
+        padding: 0 10px;
+        line-height: 40px;
         position: relative;
       }
 
       .arrow {
-        height: 1rem;
-        padding: .5rem;
+        height: 40px;
+        padding: 0 10px;
         cursor: pointer;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
       }
 
       .wrapper {
         position: absolute;
-        height: calc(100% + 6rem);
+        height: calc(100% + 80px);
         background: white;
         top: 50%;
         left: 50%;
         transform: translateX(-50%) translateY(-50%);
-        min-height: 24rem;
-        max-height: 24rem;
+        min-height: 480px;
+        max-height: 480px;
         z-index: 100;
-        border-radius: .5rem;
+        border-radius: 10px;
         border: 1px solid gray;
 
         .selector-wrapper {
           position: relative;
           height: 100%;
-          border-radius: .5rem;
+          border-radius: 10px;
           transform: translateY(0);
           overflow: auto;
         }
@@ -625,8 +645,8 @@ export default {
         div {
           cursor: pointer;
           text-align: center;
-          width: 10rem;
-          font-size: 1.2rem;
+          width: 150px;
+          font-size: 24px;
         }
       }
     }
