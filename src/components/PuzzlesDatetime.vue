@@ -220,7 +220,7 @@
 <script>
 import Arrow from './Arrow';
 import {format} from 'date-fns'
-import languageData from '../components/config/languages.json'
+import languageData from './config/languages.json'
 
 export default {
   name: 'PuzzlesDatetime',
@@ -312,8 +312,6 @@ export default {
     }
   },
   mounted() {
-    this.fetchMonths();
-
     if (this.type === 'time') {
       this.vFormat = "HH:mm";
       this.dFormat = "HH:mm";
@@ -370,16 +368,6 @@ export default {
     }
   },
   methods: {
-    fetchMonths() {
-      fetch('./config/langauges.json')
-        .then(response => response.json())
-        .then(data => {
-          this.months = data.months;
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
     // TODO: Use one universal init method for all
     init() {
       if (this.value) {
