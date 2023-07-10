@@ -6,10 +6,12 @@
 
     <div v-if="open"
          class="puzzles-datetime-wrapper">
-      <div class="background"
+      <div :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+           class="background"
            @click.self="toggle"></div>
 
-      <div class="puzzles-datetime">
+      <div :style="{ fontSize: customStyle.fontSize, backgroundColor: customStyle.backgroundColor}"
+           class="puzzles-datetime">
         <template v-if="type === 'date' || type === 'datetime'">
           <template v-if="simple">
             <div>
@@ -23,13 +25,15 @@
                 <arrow direction="left"/>
               </div>
 
-              <div class="selector-field"
+              <div :style="{ calendarDatesBackgroundColor: customStyle.calendarDatesBackgroundColor, color: customStyle.textColor }"
+                   class="selector-field"
                    @click="openSelector('year', true)">
                 {{ datetime.year }}
               </div>
 
               <div v-show="selectors.year">
                 <div class="background-selector"
+                     :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
                      @click.self="closeSelector('year')"></div>
                 <div class="wrapper">
                   <div ref="year-selector"
@@ -38,6 +42,7 @@
                          :key="`year-${year}`"
                          :ref="`year-${year}`"
                          :class="{ selected: year === datetime.year && selectors.year }"
+                         :style="{ backgroundColor: year === datetime.year && selectors.year ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: year === datetime.year && selectors.year ? customStyle.calendarSelectedTextColor : customStyle.textColor }"
                          @click="select('year', year, true)">
                       {{ year }}
                     </div>
@@ -57,13 +62,15 @@
                 <arrow direction="left"/>
               </div>
 
-              <div class="selector-field"
+              <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
+                   class="selector-field"
                    @click="openSelector('month', true)">
                 {{ monthNames[datetime.month - 1] }}
               </div>
 
               <div v-show="selectors.month">
                 <div class="background-selector"
+                     :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
                      @click.self="closeSelector('month')"></div>
                 <div class="wrapper">
                   <div ref="month-selector"
@@ -72,6 +79,7 @@
                          :key="`month-${month}`"
                          :ref="`month-${month}`"
                          :class="{ selected: month === datetime.month && selectors.month }"
+                         :style="{ backgroundColor: month === datetime.month && selectors.month ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: month === datetime.month && selectors.month ? customStyle.calendarSelectedTextColor : customStyle.textColor }"
                          @click="select('month', month, true)">
                       {{ monthNames[month - 1] }}
                     </div>
@@ -86,24 +94,25 @@
             </div>
 
             <div>
-              <table>
+              <table :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }">
                 <tr>
-                  <th v-for="day in days" :key="day">
+                  <th v-for="day in days"
+                      :key="day"
+                      :style="{ backgroundColor: customStyle.calendarHeaderBackgroundColor, color: customStyle.calendarHeaderTextColor ,fontSize: customStyle.fontSize }">
                     {{ day }}
                   </th>
                 </tr>
-                <tr v-for="(row, i) in dates"
-                    :key="`row-${i}`">
+                <tr v-for="(row, i) in dates" :key="`row-${i}`">
                   <td v-for="(d, j) in row"
                       :key="`col-${i}-${j}`"
                       :class="{ selected: d === datetime.date }"
+                      :style="{ backgroundColor: d === datetime.date ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: d === datetime.date ? customStyle.calendarSelectedTextColor : customStyle.textColor, fontSize: customStyle.fontSize }"
                       @click="select(type, d)">
                     {{ d }}
                   </td>
                 </tr>
               </table>
             </div>
-
           </template>
         </template>
         <template v-if="type === 'time' || type === 'datetime'">
@@ -114,13 +123,15 @@
                 <arrow direction="up"/>
               </div>
 
-              <div class="selector-field"
+              <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
+                   class="selector-field"
                    @click="openSelector('hour', true)">
                 {{ datetime.hour }}
               </div>
 
               <div v-show="selectors.hour">
                 <div class="background-selector"
+                     :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
                      @click.self="closeSelector('hour')"></div>
                 <div class="wrapper">
                   <div ref="hour-selector"
@@ -129,6 +140,7 @@
                          :key="`hour-${hour}`"
                          :ref="`hour-${hour}`"
                          :class="{ selected: hour === datetime.hour && selectors.hour }"
+                         :style="{ backgroundColor: hour === datetime.hour && selectors.hour ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: hour === datetime.hour && selectors.hour ? customStyle.calendarSelectedTextColor : customStyle.textColor, }"
                          @click="select('hour', hour, true)">
                       {{ hour }}
                     </div>
@@ -148,13 +160,15 @@
                 <arrow direction="up"/>
               </div>
 
-              <div class="selector-field"
+              <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
+                   class="selector-field"
                    @click="openSelector('minute', true)">
                 {{ datetime.minute }}
               </div>
 
               <div v-show="selectors.minute">
                 <div class="background-selector"
+                     :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
                      @click.self="closeSelector('minute')"></div>
                 <div class="wrapper">
                   <div ref="minute-selector"
@@ -163,6 +177,7 @@
                          :key="`minute-${minute}`"
                          :ref="`minute-${minute}`"
                          :class="{ selected: minute === datetime.minute && selectors.minute }"
+                         :style="{ backgroundColor: minute === datetime.minute && selectors.minute ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: minute === datetime.minute && selectors.minute ? customStyle.calendarSelectedTextColor : customStyle.textColor }"
                          @click="select('minute', minute, true)">
                       {{ minute }}
                     </div>
@@ -179,22 +194,24 @@
         </template>
 
         <div class="buttons">
-          <div class="button"
+          <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
+               class="button"
                @click="done('time')">
             Confirm
           </div>
           <div class="right-controllers">
-            <div class="button"
+            <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
+                 class="button"
                  @click="done('clear')">
               Clear
             </div>
-            <div class="button"
+            <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
+                 class="button"
                  @click="done('close')">
               Close
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -235,6 +252,22 @@ export default {
     }
   },
   props: {
+    customStyle: {
+      type: Object,
+      default: () => ({
+        backgroundColor: 'white',
+        textColor: 'black',
+        calendarHeaderBackgroundColor: '#e5e5e5',
+        calendarHeaderTextColor: 'black',
+        calendarDatesBackgroundColor: 'white',
+        calendarSelectedBackgroundColor: '#736cf0',
+        calendarSelectedTextColor: 'white',
+        backgroundLayerBackgroundColor: 'black',
+        backgroundLayerOpacity: 0,
+        pickerMaxWidth: '320px',
+        fontSize: '1rem'
+      })
+    },
     value: String, // Validate
     type: {
       type: String,
