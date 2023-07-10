@@ -1,5 +1,6 @@
 # Puzzles Datetime
-####Simple Datetime Picker
+
+#### Simple Datetime Picker
 
 ---
 ## Installation
@@ -33,7 +34,7 @@ import 'puzzles-datetime/dist/puzzles-datetime.css'
     <input v-model="dateValue" placeholder="Select a Date" readonly>
 </puzzles-datetime>
 ```
-####Props:
+#### Props:
 
 - ``type`` - type of the picker (default: "date")
   - Possible values:
@@ -62,10 +63,12 @@ Add ``@display="displayDateValue = arguments[0]"``, still value is stored in ``d
 but formatted display value is stored in ``displayDateValue``.
 
 ---
-###Note
+### Note
+
 This is the beta version of the puzzles-datetime, there will be more features coming out soon.
 
-##Contact
+### Contact
+
 Nermedin Dzekovic, Puzzles IT <br>
 nermedin@puzzlesit.com
 
