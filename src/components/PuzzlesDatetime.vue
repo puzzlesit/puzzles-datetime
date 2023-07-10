@@ -197,18 +197,18 @@
           <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
                class="button"
                @click="done('time')">
-            Confirm
+            {{ languageData.buttons.confirm }}
           </div>
           <div class="right-controllers">
             <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
                  class="button"
                  @click="done('clear')">
-              Clear
+              {{ languageData.buttons.clear }}
             </div>
             <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
                  class="button"
                  @click="done('close')">
-              Close
+              {{ languageData.buttons.close }}
             </div>
           </div>
         </div>
@@ -220,18 +220,20 @@
 <script>
 import Arrow from './Arrow';
 import {format} from 'date-fns'
+import languageData from './config/languages.json'
 
 export default {
   name: 'PuzzlesDatetime',
   data() {
     return {
+      languageData: {},
       open: false,
       key: 0,
       years: [], // TODO: Make options for past and future dates
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], // TODO: Make this as prop.
+      monthNames: [],
       dates: [],
-      days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], // TODO: Make this as prop.
+      days: [],
       datetime: {
         year: null,
         month: null,
@@ -252,22 +254,6 @@ export default {
     }
   },
   props: {
-    customStyle: {
-      type: Object,
-      default: () => ({
-        backgroundColor: 'white',
-        textColor: 'black',
-        calendarHeaderBackgroundColor: '#e5e5e5',
-        calendarHeaderTextColor: 'black',
-        calendarDatesBackgroundColor: 'white',
-        calendarSelectedBackgroundColor: '#736cf0',
-        calendarSelectedTextColor: 'white',
-        backgroundLayerBackgroundColor: 'black',
-        backgroundLayerOpacity: 0,
-        pickerMaxWidth: '320px',
-        fontSize: '1rem'
-      })
-    },
     value: String, // Validate
     type: {
       type: String,
@@ -284,13 +270,39 @@ export default {
     displayFormat: {
       type: String,
       default: ''
-    }
+    },
+    language:{
+      type: String,
+      default: 'eng',
+      validator: value => ['eng', 'ba'].includes(value),
+    },
+    customStyle: {
+      type: Object,
+      default: () => ({
+        backgroundColor: 'white',
+        textColor: 'black',
+        calendarHeaderBackgroundColor: '#e5e5e5',
+        calendarHeaderTextColor: 'black',
+        calendarDatesBackgroundColor: 'white',
+        calendarSelectedBackgroundColor: '#736cf0',
+        calendarSelectedTextColor: 'white',
+        backgroundLayerBackgroundColor: 'black',
+        backgroundLayerOpacity: 0,
+        pickerMaxWidth: '320px',
+        fontSize: '1rem'
+      })
+    },
   },
   components: {
     Arrow
   },
   created() {
+    this.languageData = languageData[this.language];
+    this.monthNames = Object.values(this.languageData.months);
+    this.days = Object.values(this.languageData.days);
+
     // TODO: Handle these more efficiently
+
     for (let i = 1900; i <= 2050; i++) {
       this.years.push(i)
     }

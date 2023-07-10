@@ -41,6 +41,7 @@
                         pickerMaxWidth: '320px',
                         fontSize: '1rem'
                       }"
+                      language="ba"
                       type="datetime"
                       @display="displayDatetime = arguments[0]">
       <input v-model="displayDatetime"
