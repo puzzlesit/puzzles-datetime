@@ -231,9 +231,9 @@ export default {
       key: 0,
       years: [], // TODO: Make options for past and future dates
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      monthNames: [], // TODO: Make this as prop.
+      monthNames: [],
       dates: [],
-      days: [], // TODO: Make this as prop.
+      days: [],
       datetime: {
         year: null,
         month: null,
