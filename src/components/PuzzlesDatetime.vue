@@ -729,6 +729,7 @@ export default {
           border-radius: .5rem;
           transform: translateY(0);
           overflow: auto;
+          overflow-x: hidden;
         }
 
         div {
@@ -740,6 +741,36 @@ export default {
       }
     }
   }
+
+  /* Width and height of the scrollbar track */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 0.5rem;
+  }
+
+  /* Background color of the scrollbar track */
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 0.5rem;
+  }
+
+  /* Color of the scrollbar thumb */
+  ::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 0.5rem;
+  }
+
+  /* Color of the scrollbar thumb on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+
+  /* Color of the scrollbar thumb when active */
+  ::-webkit-scrollbar-thumb:active {
+    background-color: #333;
+  }
+
 
   // Disable Selection
   -webkit-touch-callout: none; /* iOS Safari */
