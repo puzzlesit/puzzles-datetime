@@ -1,10 +1,16 @@
 <template>
   <div id="app">
-    <puzzles-datetime v-model="date" @display="displayDate = arguments[0]">
-        <input type="text"
-               v-model="displayDate"
-               placeholder="Select a date"
-               readonly>
+    <puzzles-datetime v-model="date" :custom-style="{calendarHeaderBackgroundColor: 'red', textColor: 'green'}"
+                      @display="displayDate = arguments[0]"
+                      :custom-months="{
+                      'jan': 'Month Name 1',
+                      'feb': 'Month Name 2',
+                      'oct': 'Custom',
+                    }">
+      <input v-model="displayDate"
+             placeholder="Select a date"
+             readonly
+             type="text">
     </puzzles-datetime>
 
     <br>
@@ -15,10 +21,10 @@
     <puzzles-datetime v-model="time"
                       type="time"
                       @display="displayTime = arguments[0]">
-      <input type="text"
-             v-model="displayTime"
+      <input v-model="displayTime"
              placeholder="Select a time"
-             readonly>
+             readonly
+             type="text">
     </puzzles-datetime>
 
     <br>
@@ -27,12 +33,26 @@
     <hr>
 
     <puzzles-datetime v-model="datetime"
+                      :custom-style="{
+                        backgroundColor: '#ffffff',
+                        textColor: '#364563',
+                        calendarHeaderBackgroundColor: '#698EC9',
+                        calendarHeaderTextColor: '#ffffff',
+                        calendarDatesBackgroundColor: '#ffffff',
+                        calendarSelectedBackgroundColor: '#7366f0',
+                        calendarSelectedTextColor: '#ffffff',
+                        backgroundLayerBackgroundColor: '#111827',
+                        backgroundLayerOpacity: 0.6,
+                        pickerMaxWidth: '320px',
+                        fontSize: '1rem'
+                      }"
+                      language="ba"
                       type="datetime"
                       @display="displayDatetime = arguments[0]">
-      <input type="text"
-             v-model="displayDatetime"
+      <input v-model="displayDatetime"
              placeholder="Select a Datetime"
-             readonly>
+             readonly
+             type="text">
     </puzzles-datetime>
 
     <br>
@@ -42,6 +62,7 @@
 
 <script>
 import PuzzlesDatetime from './components/PuzzlesDatetime.vue'
+
 export default { // This page is only for testing
   name: 'App',
   data() {

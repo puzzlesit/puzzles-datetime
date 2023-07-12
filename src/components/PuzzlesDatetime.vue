@@ -6,10 +6,12 @@
 
     <div v-if="open"
          class="puzzles-datetime-wrapper">
-      <div class="background"
+      <div :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+           class="background"
            @click.self="toggle"></div>
 
-      <div class="puzzles-datetime">
+      <div :style="{ fontSize: customStyle.fontSize, backgroundColor: customStyle.backgroundColor}"
+           class="puzzles-datetime">
         <template v-if="type === 'date' || type === 'datetime'">
           <template v-if="simple">
             <div>
@@ -23,21 +25,27 @@
                 <arrow direction="left"/>
               </div>
 
-              <div class="selector-field"
+              <div :style="{ calendarDatesBackgroundColor: customStyle.calendarDatesBackgroundColor, color: customStyle.textColor }"
+                   class="selector-field"
                    @click="openSelector('year', true)">
                 {{ datetime.year }}
               </div>
 
-              <div v-show="selectors.year"
-                   class="wrapper">
-                <div ref="year-selector"
-                     class="selector-wrapper">
-                  <div v-for="year in years"
-                       :key="`year-${year}`"
-                       :ref="`year-${year}`"
-                       :class="{ selected: year === datetime.year && selectors.year }"
-                       @click="select('year', year, true)">
-                    {{ year }}
+              <div v-show="selectors.year">
+                <div class="background-selector"
+                     :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+                     @click.self="closeSelector('year')"></div>
+                <div class="wrapper">
+                  <div ref="year-selector"
+                       class="selector-wrapper">
+                    <div v-for="year in years"
+                         :key="`year-${year}`"
+                         :ref="`year-${year}`"
+                         :class="{ selected: year === datetime.year && selectors.year }"
+                         :style="{ backgroundColor: year === datetime.year && selectors.year ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: year === datetime.year && selectors.year ? customStyle.calendarSelectedTextColor : customStyle.textColor }"
+                         @click="select('year', year, true)">
+                      {{ year }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -54,21 +62,27 @@
                 <arrow direction="left"/>
               </div>
 
-              <div class="selector-field"
+              <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
+                   class="selector-field"
                    @click="openSelector('month', true)">
                 {{ monthNames[datetime.month - 1] }}
               </div>
 
-              <div v-show="selectors.month"
-                   class="wrapper">
-                <div ref="month-selector"
-                     class="selector-wrapper">
-                  <div v-for="month in months"
-                       :key="`month-${month}`"
-                       :ref="`month-${month}`"
-                       :class="{ selected: month === datetime.month && selectors.month }"
-                       @click="select('month', month, true)">
-                    {{ monthNames[month - 1] }}
+              <div v-show="selectors.month">
+                <div class="background-selector"
+                     :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+                     @click.self="closeSelector('month')"></div>
+                <div class="wrapper">
+                  <div ref="month-selector"
+                       class="selector-wrapper">
+                    <div v-for="month in months"
+                         :key="`month-${month}`"
+                         :ref="`month-${month}`"
+                         :class="{ selected: month === datetime.month && selectors.month }"
+                         :style="{ backgroundColor: month === datetime.month && selectors.month ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: month === datetime.month && selectors.month ? customStyle.calendarSelectedTextColor : customStyle.textColor }"
+                         @click="select('month', month, true)">
+                      {{ monthNames[month - 1] }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -80,24 +94,25 @@
             </div>
 
             <div>
-              <table>
+              <table :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }">
                 <tr>
-                  <th v-for="day in days" :key="day">
+                  <th v-for="day in days"
+                      :key="day"
+                      :style="{ backgroundColor: customStyle.calendarHeaderBackgroundColor, color: customStyle.calendarHeaderTextColor ,fontSize: customStyle.fontSize }">
                     {{ day }}
                   </th>
                 </tr>
-                <tr v-for="(row, i) in dates"
-                    :key="`row-${i}`">
+                <tr v-for="(row, i) in dates" :key="`row-${i}`">
                   <td v-for="(d, j) in row"
                       :key="`col-${i}-${j}`"
                       :class="{ selected: d === datetime.date }"
+                      :style="{ backgroundColor: d === datetime.date ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: d === datetime.date ? customStyle.calendarSelectedTextColor : customStyle.textColor, fontSize: customStyle.fontSize }"
                       @click="select(type, d)">
                     {{ d }}
                   </td>
                 </tr>
               </table>
             </div>
-
           </template>
         </template>
         <template v-if="type === 'time' || type === 'datetime'">
@@ -108,21 +123,27 @@
                 <arrow direction="up"/>
               </div>
 
-              <div class="selector-field"
+              <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
+                   class="selector-field"
                    @click="openSelector('hour', true)">
                 {{ datetime.hour }}
               </div>
 
-              <div v-show="selectors.hour"
-                   class="wrapper">
-                <div ref="hour-selector"
-                     class="selector-wrapper">
-                  <div v-for="hour in hours"
-                       :key="`hour-${hour}`"
-                       :ref="`hour-${hour}`"
-                       :class="{ selected: hour === datetime.hour && selectors.hour }"
-                       @click="select('hour', hour, true)">
-                    {{ hour }}
+              <div v-show="selectors.hour">
+                <div class="background-selector"
+                     :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+                     @click.self="closeSelector('hour')"></div>
+                <div class="wrapper">
+                  <div ref="hour-selector"
+                       class="selector-wrapper">
+                    <div v-for="hour in hours"
+                         :key="`hour-${hour}`"
+                         :ref="`hour-${hour}`"
+                         :class="{ selected: hour === datetime.hour && selectors.hour }"
+                         :style="{ backgroundColor: hour === datetime.hour && selectors.hour ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: hour === datetime.hour && selectors.hour ? customStyle.calendarSelectedTextColor : customStyle.textColor, }"
+                         @click="select('hour', hour, true)">
+                      {{ hour }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -139,21 +160,27 @@
                 <arrow direction="up"/>
               </div>
 
-              <div class="selector-field"
+              <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
+                   class="selector-field"
                    @click="openSelector('minute', true)">
                 {{ datetime.minute }}
               </div>
 
-              <div v-show="selectors.minute"
-                   class="wrapper">
-                <div ref="minute-selector"
-                     class="selector-wrapper">
-                  <div v-for="minute in minutes"
-                       :key="`minute-${minute}`"
-                       :ref="`minute-${minute}`"
-                       :class="{ selected: minute === datetime.minute && selectors.minute }"
-                       @click="select('minute', minute, true)">
-                    {{ minute }}
+              <div v-show="selectors.minute">
+                <div class="background-selector"
+                     :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+                     @click.self="closeSelector('minute')"></div>
+                <div class="wrapper">
+                  <div ref="minute-selector"
+                       class="selector-wrapper">
+                    <div v-for="minute in minutes"
+                         :key="`minute-${minute}`"
+                         :ref="`minute-${minute}`"
+                         :class="{ selected: minute === datetime.minute && selectors.minute }"
+                         :style="{ backgroundColor: minute === datetime.minute && selectors.minute ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: minute === datetime.minute && selectors.minute ? customStyle.calendarSelectedTextColor : customStyle.textColor }"
+                         @click="select('minute', minute, true)">
+                      {{ minute }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -167,16 +194,25 @@
         </template>
 
         <div class="buttons">
-          <div class="button"
+          <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
+               class="button"
                @click="done('time')">
             {{ languageData.buttons.confirm }}
           </div>
-          <div class="button"
-               @click="done('clear')">
-               {{ languageData.buttons.clear }}
+
+          <div class="right-controllers">
+            <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
+                 class="button"
+                 @click="done('clear')">
+              {{ languageData.buttons.clear }}
+            </div>
+            <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
+                 class="button"
+                 @click="done('close')">
+              {{ languageData.buttons.close }}
+            </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -185,7 +221,7 @@
 <script>
 import Arrow from './Arrow';
 import {format} from 'date-fns'
-import languageData from '../components/config/languages.json'
+import languageData from './config/languages.json'
 
 export default {
   name: 'PuzzlesDatetime',
@@ -196,9 +232,9 @@ export default {
       key: 0,
       years: [], // TODO: Make options for past and future dates
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      monthNames: [], // TODO: Make this as prop.
+      monthNames: [],
       dates: [],
-      days: [], // TODO: Make this as prop.
+      days: [],
       datetime: {
         year: null,
         month: null,
@@ -219,11 +255,6 @@ export default {
     }
   },
   props: {
-    language:{
-      type: String,
-      default: 'ar',
-      validator: value => ['eng', 'ba'].includes(value),
-    },
     value: String, // Validate
     type: {
       type: String,
@@ -240,18 +271,43 @@ export default {
     displayFormat: {
       type: String,
       default: ''
-    }
+    },
+    language:{
+      type: String,
+      default: 'eng',
+      validator: value => ['eng', 'ba'].includes(value),
+    },
+    customMonths: {
+      type: Array,
+      default: () => [],
+    },
+    customStyle: {
+      type: Object,
+      default: () => ({
+        backgroundColor: 'white',
+        textColor: 'black',
+        calendarHeaderBackgroundColor: '#e5e5e5',
+        calendarHeaderTextColor: 'black',
+        calendarDatesBackgroundColor: 'white',
+        calendarSelectedBackgroundColor: '#736cf0',
+        calendarSelectedTextColor: 'white',
+        backgroundLayerBackgroundColor: 'black',
+        backgroundLayerOpacity: 0,
+        pickerMaxWidth: '320px',
+        fontSize: '1rem'
+      })
+    },
   },
   components: {
     Arrow
   },
   created() {
     this.languageData = languageData[this.language];
-    this.monthNames = Object.keys(this.monthNames).length > 0 ? Object.values(this.monthNames) : Object.values(this.languageData.months);
+    this.monthNames = Object.values(this.languageData.months);
     this.days = Object.values(this.languageData.days);
+    this.monthNames = Object.values(this.customMonths).length > 0 ? Object.values(this.customMonths) : Object.values(this.languageData.months);
 
     // TODO: Handle these more efficiently
-
     for (let i = 1900; i <= 2050; i++) {
       this.years.push(i)
     }
@@ -383,6 +439,9 @@ export default {
         this.$emit('display', null);
         this.toggle();
       }
+      if (type === 'close') {
+        this.toggle();
+      }
     },
     updateValue() {
       if (this.type === 'date') {
@@ -462,6 +521,9 @@ export default {
         }, 10);
       }
     },
+    closeSelector(type) {
+      this.selectors[type] = !this.selectors[type];
+    },
     createCalendar(year, month) {
       this.dates = [];
       let mon = month - 1; // months in JS are 0..11, not 1..12
@@ -508,6 +570,10 @@ export default {
   cursor: pointer;
 }
 
+.right-controllers {
+  display: flex;
+}
+
 .puzzles-datetime-wrapper {
   position: fixed;
   top: 0;
@@ -528,6 +594,17 @@ export default {
     z-index: 1;
   }
 
+  .background-selector {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(128, 128, 128, 0);
+    z-index: 1;
+  }
+
+
   .puzzles-datetime {
     position: relative;
     background: white;
@@ -545,18 +622,16 @@ export default {
       font-size: 16px;
     }
 
-    td {
+
+    td, th {
       border: 1px solid #797f8a;
       padding: 10px;
       text-align: center;
       cursor: pointer;
+      width: 2.1875rem;
     }
 
     th {
-      border: 1px solid #797f8a;
-      padding: 10px;
-      text-align: center;
-      cursor: pointer;
       font-weight: bold;
       background-color: #e6e6e6;
     }

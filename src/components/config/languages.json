@@ -118,21 +118,5 @@
       "sat": "السبت",
       "sun": "الأحد"
     }
-  },
-  "custom": {
-    "months": {
-      "jan": "Custom Month 1",
-      "feb": "Custom Month 2",
-      "mar": "Custom Month 3",
-      "apr": "Custom Month 4",
-      "may": "Custom Month 5",
-      "jun": "Custom Month 6",
-      "jul": "Custom Month 7",
-      "aug": "Custom Month 8",
-      "sep": "Custom Month 9",
-      "oct": "Custom Month 10",
-      "nov": "Custom Month 11",
-      "dec": "Custom Month 12"
-    }
   }
 }
