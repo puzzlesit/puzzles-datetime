@@ -34,9 +34,10 @@
               </div>
 
               <div v-show="selectors.year">
-                <div :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
-                     class="background-selector"
-                     @click.self="closeSelector('year')"></div>
+                <div
+                    :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+                    class="background-selector"
+                    @click.self="closeSelector('year')"></div>
                 <div class="wrapper">
                   <div ref="year-selector"
                        class="selector-wrapper">
@@ -71,9 +72,10 @@
               </div>
 
               <div v-show="selectors.month">
-                <div :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
-                     class="background-selector"
-                     @click.self="closeSelector('month')"></div>
+                <div
+                    :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+                    class="background-selector"
+                    @click.self="closeSelector('month')"></div>
                 <div class="wrapper">
                   <div ref="month-selector"
                        class="selector-wrapper">
@@ -132,9 +134,10 @@
               </div>
 
               <div v-show="selectors.hour">
-                <div :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
-                     class="background-selector"
-                     @click.self="closeSelector('hour')"></div>
+                <div
+                    :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+                    class="background-selector"
+                    @click.self="closeSelector('hour')"></div>
                 <div class="wrapper">
                   <div ref="hour-selector"
                        class="selector-wrapper">
@@ -169,9 +172,10 @@
               </div>
 
               <div v-show="selectors.minute">
-                <div :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
-                     class="background-selector"
-                     @click.self="closeSelector('minute')"></div>
+                <div
+                    :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+                    class="background-selector"
+                    @click.self="closeSelector('minute')"></div>
                 <div class="wrapper">
                   <div ref="minute-selector"
                        class="selector-wrapper">
@@ -257,10 +261,6 @@ export default {
     }
   },
   props: {
-    customDays: {
-      type: Object,
-      default: () => ({}),
-    },
     value: String, // Validate
     type: {
       type: String,
@@ -278,10 +278,18 @@ export default {
       type: String,
       default: ''
     },
+    requireConfirm: {
+      type: Boolean,
+      default: true,
+    },
     language: {
       type: String,
       default: 'eng',
       validator: value => ['eng', 'ba'].includes(value),
+    },
+    customDays: {
+      type: Object,
+      default: () => ({}),
     },
     customStyle: {
       type: Object,
@@ -428,7 +436,9 @@ export default {
     },
     done(type) {
       if (type === 'time') {
-        this.updateValue();
+        if (this.requireConfirm) {
+          this.updateValue();
+        }
         this.toggle();
       }
       if (type === 'clear') {
@@ -496,7 +506,10 @@ export default {
 
         if (type === 'date') {
           this.updateValue();
-          this.open = false; // Close the modal when date has been selected
+
+          if (!this.requireConfirm) {
+            this.toggle();
+          }
         }
       } else if (type === 'month' || type === 'year') {
         this.datetime.date = '';
