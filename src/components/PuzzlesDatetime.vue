@@ -239,6 +239,7 @@ export default {
       years: [], // TODO: Make options for past and future dates
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       monthNames: [],
+      monthKeys: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
       dates: [],
       days: [],
       dayKeys: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
@@ -289,8 +290,8 @@ export default {
       validator: value => ['eng', 'ba'].includes(value),
     },
     customMonths: {
-      type: Array,
-      default: () => [],
+      type: Object,
+      default: () => ({}),
     },
     customDays: {
       type: Object,
@@ -319,9 +320,7 @@ export default {
   created() {
     this.languageData = languageData[this.language];
     this.initDays();
-
-    this.monthNames = Object.values(this.customMonths).length > 0 ? Object.values(this.customMonths) : Object.values(this.languageData.months);
-
+    this.initMonths();
 
     // TODO: Handle these more efficiently
     for (let i = 1900; i <= 2050; i++) {
@@ -437,6 +436,13 @@ export default {
 
       this.dayKeys.forEach(key => {
         this.days.push(days[key] ? days[key] : this.languageData.days[key]);
+      });
+    },
+    initMonths() {
+      let months = Object.values(this.customMonths).length > 0 ? this.customMonths : this.languageData.months;
+
+      this.monthKeys.forEach(key => {
+        this.monthNames.push(months[key] ? months[key] : this.languageData.months[key]);
       });
     },
     done(type) {
