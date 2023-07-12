@@ -68,6 +68,7 @@
                         pickerMaxWidth: '320px',
                         fontSize: '1rem'
                       }"
+                      :require-confirm="false"
                       language="ba"
                       type="datetime"
                       @display="displayDatetime = arguments[0]">

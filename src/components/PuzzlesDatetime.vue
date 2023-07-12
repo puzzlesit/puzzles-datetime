@@ -34,9 +34,10 @@
               </div>
 
               <div v-show="selectors.year">
-                <div :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
-                     class="background-selector"
-                     @click.self="closeSelector('year')"></div>
+                <div
+                    :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+                    class="background-selector"
+                    @click.self="closeSelector('year')"></div>
                 <div class="wrapper">
                   <div ref="year-selector"
                        class="selector-wrapper">
@@ -71,9 +72,10 @@
               </div>
 
               <div v-show="selectors.month">
-                <div :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
-                     class="background-selector"
-                     @click.self="closeSelector('month')"></div>
+                <div
+                    :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+                    class="background-selector"
+                    @click.self="closeSelector('month')"></div>
                 <div class="wrapper">
                   <div ref="month-selector"
                        class="selector-wrapper">
@@ -132,9 +134,10 @@
               </div>
 
               <div v-show="selectors.hour">
-                <div :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
-                     class="background-selector"
-                     @click.self="closeSelector('hour')"></div>
+                <div
+                    :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+                    class="background-selector"
+                    @click.self="closeSelector('hour')"></div>
                 <div class="wrapper">
                   <div ref="hour-selector"
                        class="selector-wrapper">
@@ -169,9 +172,10 @@
               </div>
 
               <div v-show="selectors.minute">
-                <div :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
-                     class="background-selector"
-                     @click.self="closeSelector('minute')"></div>
+                <div
+                    :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+                    class="background-selector"
+                    @click.self="closeSelector('minute')"></div>
                 <div class="wrapper">
                   <div ref="minute-selector"
                        class="selector-wrapper">
@@ -431,26 +435,22 @@ export default {
       });
     },
     done(type) {
-        if (type === 'time') {
-          if (this.requireConfirm) {
-            this.updateValue();
-          }
-          this.toggle();
+      if (type === 'time') {
+        if (this.requireConfirm) {
+          this.updateValue();
         }
-        if (type === 'clear') {
-          this.datetime = {};
-          this.$emit('input', null);
-          this.$emit('display', null);
-          if (!this.requireConfirm) {
-            this.toggle();
-          }
-        }
-        if (type === 'close') {
-          if (!this.requireConfirm) {
-            this.toggle();
-          }
-        }
-      },
+        this.toggle();
+      }
+      if (type === 'clear') {
+        this.datetime = {};
+        this.$emit('input', null);
+        this.$emit('display', null);
+        this.toggle();
+      }
+      if (type === 'close') {
+        this.toggle();
+      }
+    },
     updateValue() {
       if (this.type === 'date') {
         this.$emit('input', format(new Date(this.datetime.year, this.datetime.month - 1, this.datetime.date), this.vFormat));
@@ -504,17 +504,16 @@ export default {
       if (type === 'date' || type === 'datetime') {
         this.datetime.date = value;
 
-        if (type === 'date' && !this.requireConfirm) {
+        if (type === 'date') {
           this.updateValue();
-          this.open = false;
+
+          if (!this.requireConfirm) {
+            this.toggle();
+          }
         }
       } else if (type === 'month' || type === 'year') {
         this.datetime.date = '';
-        this.createCalendar(this.datetime.year, this.datetime.month);
-      }
-
-      if (this.requireConfirm && (type === 'year' || type === 'month')) {
-        this.openSelector(type, true);
+        this.createCalendar(this.datetime.year, this.datetime.month); // If year or month are changed, update calendar view
       }
     },
     openSelector(type, scroll = false) {
