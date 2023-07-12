@@ -254,6 +254,10 @@ export default {
     }
   },
   props: {
+    requireConfirm: {
+    type: Boolean,
+    default: true,
+  },
     value: String, // Validate
     type: {
       type: String,
@@ -412,20 +416,26 @@ export default {
       this.createCalendar(this.datetime.year, this.datetime.month);
     },
     done(type) {
-      if (type === 'time') {
-        this.updateValue();
-        this.toggle();
-      }
-      if (type === 'clear') {
-        this.datetime = {};
-        this.$emit('input', null);
-        this.$emit('display', null);
-        this.toggle();
-      }
-      if (type === 'close') {
-        this.toggle();
-      }
-    },
+        if (type === 'time') {
+          if (this.requireConfirm) {
+            this.updateValue();
+          }
+          this.toggle();
+        }
+        if (type === 'clear') {
+          this.datetime = {};
+          this.$emit('input', null);
+          this.$emit('display', null);
+          if (!this.requireConfirm) {
+            this.toggle();
+          }
+        }
+        if (type === 'close') {
+          if (!this.requireConfirm) {
+            this.toggle();
+          }
+        }
+      },
     updateValue() {
       if (this.type === 'date') {
         this.$emit('input', format(new Date(this.datetime.year, this.datetime.month - 1, this.datetime.date), this.vFormat));
@@ -471,21 +481,25 @@ export default {
 
     },
     select(type, value) {
-      if (!value) return; // If no value has been passed, simply return
+      if (!value) return;
 
-      this.datetime[type] = value; // Set value
-      this.selectors[type] = false; // Close selector if opened
+      this.datetime[type] = value;
+      this.selectors[type] = false;
 
       if (type === 'date' || type === 'datetime') {
         this.datetime.date = value;
 
-        if (type === 'date') {
+        if (type === 'date' && !this.requireConfirm) {
           this.updateValue();
-          this.open = false; // Close the modal when date has been selected
+          this.open = false;
         }
       } else if (type === 'month' || type === 'year') {
         this.datetime.date = '';
-        this.createCalendar(this.datetime.year, this.datetime.month); // If year or month are changed, update calendar view
+        this.createCalendar(this.datetime.year, this.datetime.month);
+      }
+
+      if (this.requireConfirm && (type === 'year' || type === 'month')) {
+        this.openSelector(type, true);
       }
     },
     openSelector(type, scroll = false) {
