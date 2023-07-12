@@ -254,6 +254,10 @@ export default {
     }
   },
   props: {
+    customDays: {
+      type: Object,
+      default: () => ({}),
+    },
     value: String, // Validate
     type: {
       type: String,
@@ -300,6 +304,8 @@ export default {
     this.languageData = languageData[this.language];
     this.monthNames = Object.values(this.languageData.months);
     this.days = Object.values(this.languageData.days);
+    this.days = Object.values(this.customDays).length > 0 ? Object.values(this.customDays) : Object.values(this.languageData.days);
+
 
     // TODO: Handle these more efficiently
 
