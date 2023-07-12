@@ -654,7 +654,8 @@ export default {
 
     .buttons {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
+      margin-top: 1rem;
 
       .button {
         padding: 0.5rem;
@@ -690,7 +691,7 @@ export default {
 
     .selector {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       height: 3rem;
       padding: 0.25rem 1rem;
       line-height: 2rem;
