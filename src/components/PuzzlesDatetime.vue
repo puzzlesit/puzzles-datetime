@@ -496,10 +496,10 @@ export default {
 
     },
     select(type, value) {
-      if (!value) return;
+      if (!value) return; // If no value has been passed, simply return
 
-      this.datetime[type] = value;
-      this.selectors[type] = false;
+      this.datetime[type] = value; // Set value
+      this.selectors[type] = false; // Close selector if opened
 
       if (type === 'date' || type === 'datetime') {
         this.datetime.date = value;
