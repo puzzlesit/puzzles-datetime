@@ -1,7 +1,12 @@
 <template>
   <div id="app">
     <puzzles-datetime v-model="date" :custom-style="{calendarHeaderBackgroundColor: 'red', textColor: 'green'}"
-                      @display="displayDate = arguments[0]">
+                      @display="displayDate = arguments[0]"
+                      :custom-months="{
+                      'jan': 'Month Name 1',
+                      'feb': 'Month Name 2',
+                      'oct': 'Custom',
+                    }">
       <input v-model="displayDate"
              placeholder="Select a date"
              readonly

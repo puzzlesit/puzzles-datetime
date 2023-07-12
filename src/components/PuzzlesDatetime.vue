@@ -254,6 +254,10 @@ export default {
     }
   },
   props: {
+    customMonths: {
+      type: Array,
+      default: () => [],
+    },
     value: String, // Validate
     type: {
       type: String,
@@ -300,7 +304,8 @@ export default {
     this.languageData = languageData[this.language];
     this.monthNames = Object.values(this.languageData.months);
     this.days = Object.values(this.languageData.days);
-
+    this.monthNames = Object.values(this.customMonths).length > 0 ? Object.values(this.customMonths) : Object.values(this.languageData.months);
+    
     // TODO: Handle these more efficiently
 
     for (let i = 1900; i <= 2050; i++) {
