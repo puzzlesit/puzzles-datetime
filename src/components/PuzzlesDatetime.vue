@@ -317,8 +317,6 @@ export default {
     }
   },
   mounted() {
-    this.fetchMonths();
-
     if (this.type === 'time') {
       this.vFormat = "HH:mm";
       this.dFormat = "HH:mm";
@@ -375,16 +373,6 @@ export default {
     }
   },
   methods: {
-    fetchMonths() {
-      fetch('./config/langauges.json')
-        .then(response => response.json())
-        .then(data => {
-          this.months = data.months;
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
     // TODO: Use one universal init method for all
     init() {
       if (this.value) {
