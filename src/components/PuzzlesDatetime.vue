@@ -6,9 +6,10 @@
 
     <div v-if="open"
          class="puzzles-datetime-wrapper">
-      <div :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
-           class="background"
-           @click.self="toggle"></div>
+      <div
+          :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+          class="background"
+          @click.self="toggle"></div>
 
       <div :style="{ fontSize: customStyle.fontSize, backgroundColor: customStyle.backgroundColor}"
            class="puzzles-datetime">
@@ -25,16 +26,18 @@
                 <arrow direction="left"/>
               </div>
 
-              <div :style="{ calendarDatesBackgroundColor: customStyle.calendarDatesBackgroundColor, color: customStyle.textColor }"
-                   class="selector-field"
-                   @click="openSelector('year', true)">
+              <div
+                  :style="{ calendarDatesBackgroundColor: customStyle.calendarDatesBackgroundColor, color: customStyle.textColor }"
+                  class="selector-field"
+                  @click="openSelector('year', true)">
                 {{ datetime.year }}
               </div>
 
               <div v-show="selectors.year">
-                <div class="background-selector"
-                     :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
-                     @click.self="closeSelector('year')"></div>
+                <div
+                    :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+                    class="background-selector"
+                    @click.self="closeSelector('year')"></div>
                 <div class="wrapper">
                   <div ref="year-selector"
                        class="selector-wrapper">
@@ -69,9 +72,10 @@
               </div>
 
               <div v-show="selectors.month">
-                <div class="background-selector"
-                     :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
-                     @click.self="closeSelector('month')"></div>
+                <div
+                    :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+                    class="background-selector"
+                    @click.self="closeSelector('month')"></div>
                 <div class="wrapper">
                   <div ref="month-selector"
                        class="selector-wrapper">
@@ -96,8 +100,8 @@
             <div>
               <table :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }">
                 <tr>
-                  <th v-for="day in days"
-                      :key="day"
+                  <th v-for="(day, i) in days"
+                      :key="day + '-' + i"
                       :style="{ backgroundColor: customStyle.calendarHeaderBackgroundColor, color: customStyle.calendarHeaderTextColor ,fontSize: customStyle.fontSize }">
                     {{ day }}
                   </th>
@@ -130,9 +134,10 @@
               </div>
 
               <div v-show="selectors.hour">
-                <div class="background-selector"
-                     :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
-                     @click.self="closeSelector('hour')"></div>
+                <div
+                    :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+                    class="background-selector"
+                    @click.self="closeSelector('hour')"></div>
                 <div class="wrapper">
                   <div ref="hour-selector"
                        class="selector-wrapper">
@@ -167,9 +172,10 @@
               </div>
 
               <div v-show="selectors.minute">
-                <div class="background-selector"
-                     :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
-                     @click.self="closeSelector('minute')"></div>
+                <div
+                    :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+                    class="background-selector"
+                    @click.self="closeSelector('minute')"></div>
                 <div class="wrapper">
                   <div ref="minute-selector"
                        class="selector-wrapper">
@@ -235,6 +241,7 @@ export default {
       monthNames: [],
       dates: [],
       days: [],
+      dayKeys: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
       datetime: {
         year: null,
         month: null,
@@ -272,7 +279,11 @@ export default {
       type: String,
       default: ''
     },
-    language:{
+    requireConfirm: {
+      type: Boolean,
+      default: true,
+    },
+    language: {
       type: String,
       default: 'eng',
       validator: value => ['eng', 'ba'].includes(value),
@@ -280,6 +291,10 @@ export default {
     customMonths: {
       type: Array,
       default: () => [],
+    },
+    customDays: {
+      type: Object,
+      default: () => ({}),
     },
     customStyle: {
       type: Object,
@@ -303,9 +318,10 @@ export default {
   },
   created() {
     this.languageData = languageData[this.language];
-    this.monthNames = Object.values(this.languageData.months);
-    this.days = Object.values(this.languageData.days);
+    this.initDays();
+
     this.monthNames = Object.values(this.customMonths).length > 0 ? Object.values(this.customMonths) : Object.values(this.languageData.months);
+
 
     // TODO: Handle these more efficiently
     for (let i = 1900; i <= 2050; i++) {
@@ -416,9 +432,18 @@ export default {
 
       this.createCalendar(this.datetime.year, this.datetime.month);
     },
+    initDays() {
+      let days = Object.values(this.customDays).length > 0 ? this.customDays : this.languageData.days;
+
+      this.dayKeys.forEach(key => {
+        this.days.push(days[key] ? days[key] : this.languageData.days[key]);
+      });
+    },
     done(type) {
       if (type === 'time') {
-        this.updateValue();
+        if (this.requireConfirm) {
+          this.updateValue();
+        }
         this.toggle();
       }
       if (type === 'clear') {
@@ -486,7 +511,10 @@ export default {
 
         if (type === 'date') {
           this.updateValue();
-          this.open = false; // Close the modal when date has been selected
+
+          if (!this.requireConfirm) {
+            this.toggle();
+          }
         }
       } else if (type === 'month' || type === 'year') {
         this.datetime.date = '';
