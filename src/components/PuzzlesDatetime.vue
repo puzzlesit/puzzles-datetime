@@ -205,6 +205,7 @@
                @click="done('time')">
             {{ languageData.buttons.confirm }}
           </div>
+
           <div class="right-controllers">
             <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
                  class="button"
@@ -238,6 +239,7 @@ export default {
       years: [], // TODO: Make options for past and future dates
       months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       monthNames: [],
+      monthKeys: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
       dates: [],
       days: [],
       dayKeys: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
@@ -287,6 +289,10 @@ export default {
       default: 'eng',
       validator: value => ['eng', 'ba'].includes(value),
     },
+    customMonths: {
+      type: Object,
+      default: () => ({}),
+    },
     customDays: {
       type: Object,
       default: () => ({}),
@@ -314,11 +320,9 @@ export default {
   created() {
     this.languageData = languageData[this.language];
     this.initDays();
-
-    this.monthNames = Object.values(this.languageData.months);
+    this.initMonths();
 
     // TODO: Handle these more efficiently
-
     for (let i = 1900; i <= 2050; i++) {
       this.years.push(i)
     }
@@ -432,6 +436,13 @@ export default {
 
       this.dayKeys.forEach(key => {
         this.days.push(days[key] ? days[key] : this.languageData.days[key]);
+      });
+    },
+    initMonths() {
+      let months = Object.values(this.customMonths).length > 0 ? this.customMonths : this.languageData.months;
+
+      this.monthKeys.forEach(key => {
+        this.monthNames.push(months[key] ? months[key] : this.languageData.months[key]);
       });
     },
     done(type) {
@@ -589,8 +600,8 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   z-index: 999999;
   display: flex;
   flex-direction: column;
@@ -601,7 +612,7 @@ export default {
     width: 100%;
     height: 100%;
     cursor: pointer;
-    //background: rgba(75, 85, 99, 0.75);
+    background: rgba(75, 85, 99, 0.75);
     z-index: 1;
   }
 
@@ -633,9 +644,10 @@ export default {
       font-size: 1rem;
     }
 
+
     td, th {
       border: 1px solid #797f8a;
-      padding: 0.5rem;
+      padding: .5rem;
       text-align: center;
       cursor: pointer;
       width: 2.1875rem;
@@ -705,9 +717,6 @@ export default {
         height: 1rem;
         padding: .5rem;
         cursor: pointer;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
       }
 
       .wrapper {
