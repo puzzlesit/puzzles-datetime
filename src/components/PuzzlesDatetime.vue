@@ -21,7 +21,6 @@
           </template>
           <template v-else>
             
-
             <div class="selector">
               <div class="arrow"
                    @click="move('month', false)">
