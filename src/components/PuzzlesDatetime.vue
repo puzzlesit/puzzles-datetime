@@ -489,14 +489,30 @@ export default {
         } else {
           this.datetime.month = newMonth;
         }
-      }
-
-      if (type === 'year') {
+      } else if (type === 'year') {
         this.datetime.year += increment ? 1 : -1;
+      } else if (type === 'hour') {
+        let newHour = parseInt(this.datetime.hour) + (increment ? 1 : -1);
+        if (newHour > 23) {
+          this.datetime.hour = '00';
+        } else if (newHour < 0) {
+          this.datetime.hour = '23';
+        } else {
+          this.datetime.hour = newHour.toString().padStart(2, '0');
+        }
+      } else if (type === 'minute') {
+        let newMinute = parseInt(this.datetime.minute) + (increment ? 1 : -1);
+        if (newMinute > 59) {
+          this.datetime.minute = '00';
+        } else if (newMinute < 0) {
+          this.datetime.minute = '59';
+        } else {
+          this.datetime.minute = newMinute.toString().padStart(2, '0');
+        }
       }
 
       this.createCalendar(this.datetime.year, this.datetime.month);
-},
+    },
 
     select(type, value) {
       if (!value) return; // If no value has been passed, simply return
@@ -580,6 +596,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
 .puzzles-slot-wrapper {
   cursor: pointer;
 }
@@ -634,10 +654,6 @@ export default {
       border-collapse: collapse;
       width: 100%;
       font-size: 1rem;
-    }
-
-    td:hover{
-      background-color: #b1aaff;
     }
 
     td, th {
