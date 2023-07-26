@@ -20,10 +20,37 @@
             </div>
           </template>
           <template v-else>
+            
+
             <div class="selector">
               <div class="arrow"
-                   @click="move('year', false)">
+                   @click="move('month', false)">
                 <arrow direction="left"/>
+              </div>
+
+              <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
+                   class="selector-field"
+                   @click="openSelector('month', true)">
+                {{ monthNames[datetime.month - 1] }}
+              </div>
+              <div v-show="selectors.month">
+                <div
+                    :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+                    class="background-selector"
+                    @click.self="closeSelector('month')"></div>
+                <div class="wrapper">
+                  <div ref="month-selector"
+                       class="selector-wrapper">
+                    <div v-for="month in months"
+                         :key="`month-${month}`"
+                         :ref="`month-${month}`"
+                         :class="{ selected: month === datetime.month && selectors.month }"
+                         :style="{ backgroundColor: month === datetime.month && selectors.month ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: month === datetime.month && selectors.month ? customStyle.calendarSelectedTextColor : customStyle.textColor }"
+                         @click="select('month', month, true)">
+                      {{ monthNames[month - 1] }}
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div
@@ -48,44 +75,6 @@
                          :style="{ backgroundColor: year === datetime.year && selectors.year ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: year === datetime.year && selectors.year ? customStyle.calendarSelectedTextColor : customStyle.textColor }"
                          @click="select('year', year, true)">
                       {{ year }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="arrow"
-                   @click="move('year', true)">
-                <arrow direction="right"/>
-              </div>
-            </div>
-
-            <div class="selector">
-              <div class="arrow"
-                   @click="move('month', false)">
-                <arrow direction="left"/>
-              </div>
-
-              <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
-                   class="selector-field"
-                   @click="openSelector('month', true)">
-                {{ monthNames[datetime.month - 1] }}
-              </div>
-
-              <div v-show="selectors.month">
-                <div
-                    :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
-                    class="background-selector"
-                    @click.self="closeSelector('month')"></div>
-                <div class="wrapper">
-                  <div ref="month-selector"
-                       class="selector-wrapper">
-                    <div v-for="month in months"
-                         :key="`month-${month}`"
-                         :ref="`month-${month}`"
-                         :class="{ selected: month === datetime.month && selectors.month }"
-                         :style="{ backgroundColor: month === datetime.month && selectors.month ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: month === datetime.month && selectors.month ? customStyle.calendarSelectedTextColor : customStyle.textColor }"
-                         @click="select('month', month, true)">
-                      {{ monthNames[month - 1] }}
                     </div>
                   </div>
                 </div>
@@ -485,27 +474,30 @@ export default {
       this.open = !this.open;
       this.key++;
     },
-    move(type, up) {
+    move(type, increment) {
       if (this.selectors[type]) return;
 
-      let i = this[`${type}s`].findIndex(j => j === this.datetime[type]);
+      if (type === 'month') {
+        let newMonth = this.datetime.month + (increment ? 1 : -1);
 
-      if (up) {
-        if (i + 1 < this[`${type}s`].length) {
-          // this.datetime[type] = this[`${type}s`][i+1];
-          this.select(type, this[`${type}s`][i + 1])
+        if (newMonth > 12) {
+          this.datetime.month = 1;
+          this.datetime.year++;
+        } else if (newMonth < 1) {
+          this.datetime.month = 12;
+          this.datetime.year--;
         } else {
-          // Can't go up anymore
-        }
-      } else {
-        if (i === 0) {
-          // Can't go down anymore
-        } else {
-          this.select(type, this[`${type}s`][i - 1])
+          this.datetime.month = newMonth;
         }
       }
 
-    },
+      if (type === 'year') {
+        this.datetime.year += increment ? 1 : -1;
+      }
+
+      this.createCalendar(this.datetime.year, this.datetime.month);
+},
+
     select(type, value) {
       if (!value) return; // If no value has been passed, simply return
 
@@ -644,6 +636,9 @@ export default {
       font-size: 1rem;
     }
 
+    td:hover{
+      background-color: #b1aaff;
+    }
 
     td, th {
       border: 1px solid #797f8a;
@@ -651,6 +646,7 @@ export default {
       text-align: center;
       cursor: pointer;
       width: 2.1875rem;
+      border: none;
     }
 
     th {
@@ -674,6 +670,7 @@ export default {
     .selected {
       background: #7367f0;
       color: white;
+      border-radius: 1.5rem;
     }
 
     .time-selectors {
