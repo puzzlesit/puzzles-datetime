@@ -686,7 +686,7 @@ export default {
     .selected {
       background: #7367f0;
       color: white;
-      border-radius: 1.5rem;
+      
     }
 
     .time-selectors {

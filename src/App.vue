@@ -5,8 +5,8 @@
                       :custom-style="{
                         backgroundColor: '#ffffff',
                         textColor: '#364563',
-                        calendarHeaderBackgroundColor: '#698EC9',
-                        calendarHeaderTextColor: '#ffffff',
+                        calendarHeaderBackgroundColor: 'white',
+                        calendarHeaderTextColor: 'black',
                         calendarDatesBackgroundColor: '#ffffff',
                         calendarSelectedBackgroundColor: '#7366f0',
                         calendarSelectedTextColor: '#ffffff',
