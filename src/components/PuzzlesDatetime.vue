@@ -148,6 +148,8 @@
               </div>
             </div>
 
+            <span>:</span>
+
             <div class="selector">
               <div class="arrow"
                    @click="move('minute', true)">
@@ -172,7 +174,7 @@
                          :key="`minute-${minute}`"
                          :ref="`minute-${minute}`"
                          :class="{ selected: minute === datetime.minute && selectors.minute }"
-                         :style="{ backgroundColor: minute === datetime.minute && selectors.minute ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: minute === datetime.minute && selectors.minute ? customStyle.calendarSelectedTextColor : customStyle.textColor }"
+                         :style="{ backgroundColor: minute === datetime.minute && selectors.minute ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: minute === datetime.minute && selectors.minute ? customStyle.calendarSelectedTextColor : customStyle.textColor}"
                          @click="select('minute', minute, true)">
                       {{ minute }}
                     </div>
@@ -299,6 +301,7 @@ export default {
         backgroundLayerBackgroundColor: 'black',
         backgroundLayerOpacity: 0,
         pickerMaxWidth: '320px',
+        fontFamily: 'Arial, Helvetica, sans-serif',
         fontSize: '1rem'
       })
     },
@@ -597,9 +600,6 @@ export default {
 
 <style lang="scss" scoped>
 
-* {
-  font-family: Arial, Helvetica, sans-serif;
-}
 .puzzles-slot-wrapper {
   cursor: pointer;
 }
@@ -649,6 +649,7 @@ export default {
     box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
     -webkit-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
     -moz-box-shadow: 0 0 10px 1px rgba(82, 82, 82, 0.8);
+    font-family: var(--fontFamily, Arial, Helvetica, sans-serif);
 
     table {
       border-collapse: collapse;
@@ -664,6 +665,12 @@ export default {
       width: 2.1875rem;
       border: none;
     }
+
+    td:hover {
+  background-color: #e6e6e6; /* Change to the desired hover color */
+  color: #000; /* Change to the desired text color on hover */
+  cursor: pointer;
+}
 
     th {
       font-weight: bold;
@@ -682,11 +689,17 @@ export default {
       }
     }
 
+    span {
+      margin-top: auto;
+      margin-bottom: auto;
+      font-size: 40px;
+    }
 
     .selected {
       background: #7367f0;
       color: white;
-      
+      cursor: pointer;
+      border-radius: .5rem;
     }
 
     .time-selectors {
