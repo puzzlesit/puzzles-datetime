@@ -7,11 +7,11 @@
     <div v-if="open"
          class="puzzles-datetime-wrapper">
       <div
-          :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
+          :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity}"
           class="background"
           @click.self="toggle"></div>
 
-      <div :style="{ fontSize: customStyle.fontSize, backgroundColor: customStyle.backgroundColor}"
+      <div :style="{ fontSize: customStyle.fontSize, backgroundColor: customStyle.backgroundColor, height: customStyle.backgroundHeight}"
            class="puzzles-datetime">
         <template v-if="type === 'date' || type === 'datetime'">
           <template v-if="simple">
@@ -301,7 +301,8 @@ export default {
         backgroundLayerOpacity: 0,
         pickerMaxWidth: '320px',
         fontFamily: 'Arial, Helvetica, sans-serif',
-        fontSize: '1rem'
+        fontSize: '1rem',
+        backgroundHeight: '100vh'
       })
     },
   },
@@ -664,12 +665,6 @@ export default {
       width: 2.1875rem;
       border: none;
     }
-
-    td:hover {
-  background-color: #e6e6e6; /* Change to the desired hover color */
-  color: #000; /* Change to the desired text color on hover */
-  cursor: pointer;
-}
 
     th {
       font-weight: bold;

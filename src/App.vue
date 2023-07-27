@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <puzzles-datetime v-model="date"
-                      :custom-days="{ 'mon': 'MON', 'tue': 'TUE', 'thu': 'THU', 'fri': 'FRI', 'wed': 'WED', 'sat': 'SAT', 'sun': 'SUN' }"
+                      :custom-days="{ 'mon': 'M', 'tue': 'T', 'thu': 'T', 'fri': 'F', 'wed': 'W', 'sat': 'S', 'sun': 'S' }"
                       :custom-style="{
                         backgroundColor: '#ffffff',
                         textColor: '#364563',
@@ -13,7 +13,8 @@
                         backgroundLayerBackgroundColor: '#111827',
                         backgroundLayerOpacity: 0.6,
                         pickerMaxWidth: '320px',
-                        fontSize: '1rem'
+                        fontSize: '1rem',
+                        backgroundHeight: '35rem'
                       }"
                       @display="displayDate = arguments[0]">
       <input v-model="displayDate"
