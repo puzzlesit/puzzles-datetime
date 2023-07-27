@@ -190,19 +190,19 @@
         </template>
 
         <div class="buttons">
-          <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
+          <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor, fontWeight:'bold'}"
                class="button"
                @click="done('time')">
             {{ languageData.buttons.confirm }}
           </div>
 
           <div class="right-controllers">
-            <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
+            <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor, fontWeight: 'bold'}"
                  class="button"
                  @click="done('clear')">
               {{ languageData.buttons.clear }}
             </div>
-            <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
+            <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor, fontWeight: 'bold'}"
                  class="button"
                  @click="done('close')">
               {{ languageData.buttons.close }}
@@ -302,7 +302,7 @@ export default {
         pickerMaxWidth: '320px',
         fontFamily: 'Arial, Helvetica, sans-serif',
         fontSize: '1rem',
-        backgroundHeight: '100vh'
+        backgroundHeight: '100vh',
       })
     },
   },
@@ -606,6 +606,7 @@ export default {
 
 .right-controllers {
   display: flex;
+  margin-left: 85%;
 }
 
 .puzzles-datetime-wrapper {
@@ -640,6 +641,8 @@ export default {
 
 
   .puzzles-datetime {
+    display: grid;
+    place-items: center;
     position: relative;
     background: white;
     z-index: 100;
@@ -672,9 +675,11 @@ export default {
     }
 
     .buttons {
-      display: flex;
-      justify-content: space-between;
+      display: flex; 
+      justify-content: space-between; 
       margin-top: 1rem;
+      margin-right: 45%;
+    
 
       .button {
         padding: 0.5rem;

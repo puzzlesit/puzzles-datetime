@@ -14,7 +14,7 @@
                         backgroundLayerOpacity: 0.6,
                         pickerMaxWidth: '320px',
                         fontSize: '1rem',
-                        backgroundHeight: '35rem'
+                        backgroundHeight: '30rem',
                       }"
                       @display="displayDate = arguments[0]">
       <input v-model="displayDate"
