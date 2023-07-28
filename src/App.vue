@@ -15,7 +15,7 @@
                         pickerMaxWidth: '320px',
                         fontSize: '1rem',
                         backgroundHeight: '30rem',
-                        arrowBackgroundColor: 'red'
+                        arrowBackgroundColor: 'white'
                         //customButtonWidth 
                       }"
                       @display="displayDate = arguments[0]">
@@ -42,7 +42,8 @@
                         backgroundLayerBackgroundColor: '#111827',
                         backgroundLayerOpacity: 0.6,
                         pickerMaxWidth: '320px',
-                        fontSize: '1rem'
+                        fontSize: '1rem',
+                        arrowBackgroundColor: 'white'
                       }"
                       type="time"
                       @display="displayTime = arguments[0]">
@@ -69,7 +70,8 @@
                         backgroundLayerBackgroundColor: '#111827',
                         backgroundLayerOpacity: 0.6,
                         pickerMaxWidth: '320px',
-                        fontSize: '1rem'
+                        fontSize: '1rem',
+                        arrowBackgroundColor: 'white'
                       }"
                       :require-confirm="false"
                       language="ba"

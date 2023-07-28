@@ -113,6 +113,7 @@
           <div class="time-selectors">
             <div class="selector">
               <div class="arrow"
+                   :style="{ backgroundColor: customStyle.arrowBackgroundColor }"
                    @click="move('hour', true)">
                 <arrow direction="up"/>
               </div>
@@ -144,6 +145,7 @@
               </div>
 
               <div class="arrow"
+                   :style="{ backgroundColor: customStyle.arrowBackgroundColor }"
                    @click="move('hour', false)">
                 <arrow direction="down"/>
               </div>
@@ -153,6 +155,7 @@
 
             <div class="selector">
               <div class="arrow"
+                   :style="{ backgroundColor: customStyle.arrowBackgroundColor }"
                    @click="move('minute', true)">
                 <arrow direction="up"/>
               </div>
@@ -184,6 +187,7 @@
               </div>
 
               <div class="arrow"
+                   :style="{ backgroundColor: customStyle.arrowBackgroundColor }"
                    @click="move('minute', false)">
                 <arrow direction="down"/>
               </div>
