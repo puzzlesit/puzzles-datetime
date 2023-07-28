@@ -16,7 +16,8 @@
                         fontSize: '1rem',
                         backgroundHeight: '30rem',
                         arrowBackgroundColor: 'white',
-                        customRadius: '50%'
+                        customRadius: '50%',
+                        customButtonGap: '6rem'
                         //customButtonWidth 
                       }"
                       @display="displayDate = arguments[0]">
@@ -44,7 +45,7 @@
                         backgroundLayerOpacity: 0.6,
                         pickerMaxWidth: '320px',
                         fontSize: '1rem',
-                        arrowBackgroundColor: 'white'
+                        arrowBackgroundColor: 'white',
                       }"
                       type="time"
                       @display="displayTime = arguments[0]">

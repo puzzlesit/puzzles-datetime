@@ -196,12 +196,13 @@
         </template>
 
         <div class="buttons">
-          <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor, fontWeight:'bold'}"
+         <div class="left-controller">
+          <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor, fontWeight:'bold', marginRight: customStyle.customButtonGap }"
                class="button"
                @click="done('time')">
             {{ languageData.buttons.confirm }}
           </div>
-
+         </div>
           <div class="right-controllers">
             <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor, fontWeight: 'bold'}"
                  class="button"
@@ -310,7 +311,8 @@ export default {
         fontSize: '1rem',
         backgroundHeight: '100vh',
         arrowBackgroundColor: 'red',
-        customRadius: '50%'
+        customRadius: '50%',
+        customButtonGap: '4rem'
       })
     },
   },
@@ -682,9 +684,13 @@ export default {
       justify-content: space-between; 
       margin-top: 1rem;
     
-    .right-controllers {
-      display: flex;
-    }
+      .left-controller {
+        display: flex;
+      }
+
+      .right-controllers {
+        display: flex;
+      }
 
       .button {
         padding: 0.5rem;
