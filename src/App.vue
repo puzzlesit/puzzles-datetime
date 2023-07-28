@@ -16,9 +16,9 @@
                         fontSize: '1rem',
                         backgroundHeight: '30rem',
                         arrowBackgroundColor: 'white',
-                        customRadius: '50%',
+                        selectRadius: '50%',
                         customButtonGap: '6rem',
-                        tableBorderColor: 'white'
+                        tableBorderColor: 'white',
                       }"
                       @display="displayDate = arguments[0]">
       <input v-model="displayDate"
@@ -62,7 +62,7 @@
 
     <puzzles-datetime v-model="datetime"
                       :custom-style="{
-                         backgroundColor: '#ffffff',
+                        backgroundColor: '#ffffff',
                         textColor: '#364563',
                         calendarHeaderBackgroundColor: 'white',
                         calendarHeaderTextColor: 'black',
@@ -76,9 +76,10 @@
                         backgroundHeight: '30rem',
                         arrowBackgroundColor: 'white',
                         customRadius: '50%',
-                        customButtonGap: '6rem'
+                        customButtonGap: '8rem',
+                        tableBorderColor: 'white'
                       }"
-                      :require-confirm="false"
+                      :require-confirm="true"
                       language="ba"
                       type="datetime"
                       @display="displayDatetime = arguments[0]">
