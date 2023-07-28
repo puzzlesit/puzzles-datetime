@@ -23,6 +23,7 @@
             
             <div class="selector">
               <div class="arrow"
+                   :style="{ backgroundColor: customStyle.arrowBackgroundColor }"
                    @click="move('month', false)">
                 <arrow direction="left"/>
               </div>
@@ -80,7 +81,8 @@
               </div>
 
               <div class="arrow"
-                   @click="move('month', true)">
+                   @click="move('month', true)"
+                   :style="{ backgroundColor: customStyle.arrowBackgroundColor }">
                 <arrow direction="right"/>
               </div>
             </div>
@@ -303,6 +305,7 @@ export default {
         fontFamily: 'Arial, Helvetica, sans-serif',
         fontSize: '1rem',
         backgroundHeight: '100vh',
+        arrowBackgroundColor: 'red'
       })
     },
   },
@@ -604,11 +607,6 @@ export default {
   cursor: pointer;
 }
 
-.right-controllers {
-  display: flex;
-  margin-left: 85%;
-}
-
 .puzzles-datetime-wrapper {
   position: fixed;
   top: 0;
@@ -678,8 +676,10 @@ export default {
       display: flex; 
       justify-content: space-between; 
       margin-top: 1rem;
-      margin-right: 45%;
     
+    .right-controllers {
+      display: flex;
+    }
 
       .button {
         padding: 0.5rem;
@@ -704,6 +704,7 @@ export default {
     .time-selectors {
       display: flex;
       justify-content: center;
+      
 
       .selector {
         width: 2rem;
@@ -740,7 +741,9 @@ export default {
 
       .arrow {
         height: 1rem;
+        opacity: 50%;
         padding: .5rem;
+        border-radius: 50%;
         cursor: pointer;
       }
 
