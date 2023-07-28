@@ -100,7 +100,7 @@
                   <td v-for="(d, j) in row"
                       :key="`col-${i}-${j}`"
                       :class="{ selected: d === datetime.date }"
-                      :style="{ backgroundColor: d === datetime.date ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: d === datetime.date ? customStyle.calendarSelectedTextColor : customStyle.textColor, fontSize: customStyle.fontSize }"
+                      :style="{ backgroundColor: d === datetime.date ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: d === datetime.date ? customStyle.calendarSelectedTextColor : customStyle.textColor, fontSize: customStyle.fontSize, borderRadius: customStyle.customRadius }"
                       @click="select(type, d)">
                     {{ d }}
                   </td>
@@ -309,7 +309,8 @@ export default {
         fontFamily: 'Arial, Helvetica, sans-serif',
         fontSize: '1rem',
         backgroundHeight: '100vh',
-        arrowBackgroundColor: 'red'
+        arrowBackgroundColor: 'red',
+        customRadius: '50%'
       })
     },
   },
@@ -696,6 +697,13 @@ export default {
       margin-top: auto;
       margin-bottom: auto;
       font-size: 40px;
+    }
+
+    .list-selected {
+      background: #7367f0;
+      color: white;
+      cursor: pointer;
+      border-radius: .5rem;
     }
 
     .selected {

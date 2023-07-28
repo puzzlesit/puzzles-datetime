@@ -15,7 +15,8 @@
                         pickerMaxWidth: '320px',
                         fontSize: '1rem',
                         backgroundHeight: '30rem',
-                        arrowBackgroundColor: 'white'
+                        arrowBackgroundColor: 'white',
+                        customRadius: '50%'
                         //customButtonWidth 
                       }"
                       @display="displayDate = arguments[0]">
