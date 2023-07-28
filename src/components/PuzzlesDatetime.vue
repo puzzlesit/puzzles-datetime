@@ -92,7 +92,7 @@
                 <tr>
                   <th v-for="(day, i) in days"
                       :key="day + '-' + i"
-                      :style="{ backgroundColor: customStyle.calendarHeaderBackgroundColor, color: customStyle.calendarHeaderTextColor ,fontSize: customStyle.fontSize }">
+                      :style="{ backgroundColor: customStyle.calendarHeaderBackgroundColor, color: customStyle.calendarHeaderTextColor ,fontSize: customStyle.fontSize, borderColor: customStyle.tableBorderColor }">
                     {{ day }}
                   </th>
                 </tr>
@@ -100,7 +100,7 @@
                   <td v-for="(d, j) in row"
                       :key="`col-${i}-${j}`"
                       :class="{ selected: d === datetime.date }"
-                      :style="{ backgroundColor: d === datetime.date ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: d === datetime.date ? customStyle.calendarSelectedTextColor : customStyle.textColor, fontSize: customStyle.fontSize, borderRadius: customStyle.customRadius }"
+                      :style="{ backgroundColor: d === datetime.date ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: d === datetime.date ? customStyle.calendarSelectedTextColor : customStyle.textColor, fontSize: customStyle.fontSize, borderRadius: customStyle.customRadius, borderColor: customStyle.tableBorderColor }"
                       @click="select(type, d)">
                     {{ d }}
                   </td>
@@ -210,8 +210,8 @@
               {{ languageData.buttons.clear }}
             </div>
             <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor, fontWeight: 'bold'}"
-                  class="button"
-                  @click="done('close')">
+                 class="button"
+                 @click="done('close')">
               {{ languageData.buttons.close }}
             </div>
           </div>
@@ -312,7 +312,8 @@ export default {
         backgroundHeight: '100vh',
         arrowBackgroundColor: 'red',
         customRadius: '50%',
-        customButtonGap: '4rem'
+        customButtonGap: '4rem',
+        tableBorderColor: 'white'
       })
     },
   },
@@ -671,7 +672,6 @@ export default {
       text-align: center;
       cursor: pointer;
       width: 2.1875rem;
-      border: none;
     }
 
     th {

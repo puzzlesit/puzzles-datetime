@@ -17,8 +17,8 @@
                         backgroundHeight: '30rem',
                         arrowBackgroundColor: 'white',
                         customRadius: '50%',
-                        customButtonGap: '6rem'
-                        //customButtonWidth 
+                        customButtonGap: '6rem',
+                        tableBorderColor: 'white'
                       }"
                       @display="displayDate = arguments[0]">
       <input v-model="displayDate"
