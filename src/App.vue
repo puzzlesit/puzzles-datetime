@@ -62,18 +62,21 @@
 
     <puzzles-datetime v-model="datetime"
                       :custom-style="{
-                        backgroundColor: '#ffffff',
+                         backgroundColor: '#ffffff',
                         textColor: '#364563',
-                        calendarHeaderBackgroundColor: '#698EC9',
-                        calendarHeaderTextColor: '#ffffff',
+                        calendarHeaderBackgroundColor: 'white',
+                        calendarHeaderTextColor: 'black',
                         calendarDatesBackgroundColor: '#ffffff',
-                        calendarSelectedBackgroundColor: '#7366f0',
-                        calendarSelectedTextColor: '#ffffff',
+                        calendarSelectedBackgroundColor: '#39FFA0',
+                        calendarSelectedTextColor: 'black',
                         backgroundLayerBackgroundColor: '#111827',
                         backgroundLayerOpacity: 0.6,
                         pickerMaxWidth: '320px',
                         fontSize: '1rem',
-                        arrowBackgroundColor: 'white'
+                        backgroundHeight: '30rem',
+                        arrowBackgroundColor: 'white',
+                        customRadius: '50%',
+                        customButtonGap: '6rem'
                       }"
                       :require-confirm="false"
                       language="ba"
