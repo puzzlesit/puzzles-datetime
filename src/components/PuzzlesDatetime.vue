@@ -29,14 +29,14 @@
               </div>
 
               <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
-                   class="selector-field"
+                    class="selector-field"
                    @click="openSelector('month', true)">
                 {{ monthNames[datetime.month - 1] }}
               </div>
               <div v-show="selectors.month">
                 <div
                     :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
-                    class="background-selector"
+                     class="background-selector"
                     @click.self="closeSelector('month')"></div>
                 <div class="wrapper">
                   <div ref="month-selector"
@@ -55,7 +55,7 @@
 
               <div
                   :style="{ calendarDatesBackgroundColor: customStyle.calendarDatesBackgroundColor, color: customStyle.textColor }"
-                  class="selector-field"
+                   class="selector-field"
                   @click="openSelector('year', true)">
                 {{ datetime.year }}
               </div>
@@ -63,7 +63,7 @@
               <div v-show="selectors.year">
                 <div
                     :style="{ backgroundColor: customStyle.backgroundLayerBackgroundColor, opacity: customStyle.backgroundLayerOpacity }"
-                    class="background-selector"
+                     class="background-selector"
                     @click.self="closeSelector('year')"></div>
                 <div class="wrapper">
                   <div ref="year-selector"
@@ -210,8 +210,8 @@
               {{ languageData.buttons.clear }}
             </div>
             <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor, fontWeight: 'bold'}"
-                 class="button"
-                 @click="done('close')">
+                  class="button"
+                  @click="done('close')">
               {{ languageData.buttons.close }}
             </div>
           </div>
