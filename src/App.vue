@@ -19,6 +19,7 @@
                         selectRadius: '50%',
                         customButtonGap: '6rem',
                         tableBorderColor: 'white',
+                        customPickerPadding: '.5rem'
                       }"
                       @display="displayDate = arguments[0]">
       <input v-model="displayDate"
@@ -43,7 +44,7 @@
                         calendarSelectedTextColor: '#ffffff',
                         backgroundLayerBackgroundColor: '#111827',
                         backgroundLayerOpacity: 0.6,
-                        pickerMaxWidth: '10rem',
+                        pickerMaxWidth: '1.5rem',
                         fontSize: '1rem',
                         arrowBackgroundColor: 'white',
                       }"

@@ -92,7 +92,7 @@
                 <tr>
                   <th v-for="(day, i) in days"
                       :key="day + '-' + i"
-                      :style="{ backgroundColor: customStyle.calendarHeaderBackgroundColor, color: customStyle.calendarHeaderTextColor ,fontSize: customStyle.fontSize, borderColor: customStyle.tableBorderColor, width: customStyle.pickerMaxWidth }">
+                      :style="{ backgroundColor: customStyle.calendarHeaderBackgroundColor, color: customStyle.calendarHeaderTextColor ,fontSize: customStyle.fontSize, borderColor: customStyle.tableBorderColor, width: customStyle.pickerMaxWidth, padding: customStyle.customPickerPadding }">
                     {{ day }}
                   </th>
                 </tr>
@@ -100,7 +100,7 @@
                   <td v-for="(d, j) in row"
                       :key="`col-${i}-${j}`"
                       :class="{ selected: d === datetime.date }"
-                      :style="{ backgroundColor: d === datetime.date ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: d === datetime.date ? customStyle.calendarSelectedTextColor : customStyle.textColor, fontSize: customStyle.fontSize, borderRadius: customStyle.selectRadius, borderColor: customStyle.tableBorderColor, width: customStyle.pickerMaxWidth }"
+                      :style="{ backgroundColor: d === datetime.date ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: d === datetime.date ? customStyle.calendarSelectedTextColor : customStyle.textColor, fontSize: customStyle.fontSize, borderRadius: customStyle.selectRadius, borderColor: customStyle.tableBorderColor, width: customStyle.pickerMaxWidth, padding: customPickerPadding }"
                       @click="select(type, d)">
                     {{ d }}
                   </td>
@@ -316,6 +316,7 @@ export default {
         selectRadius: '0%',
         customButtonGap: '4rem',
         tableBorderColor: 'white',
+        customPickerPadding: '.5rem'
       })
     },
   },
