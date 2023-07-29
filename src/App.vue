@@ -43,7 +43,7 @@
                         calendarSelectedTextColor: '#ffffff',
                         backgroundLayerBackgroundColor: '#111827',
                         backgroundLayerOpacity: 0.6,
-                        pickerMaxWidth: '320px',
+                        pickerMaxWidth: '10rem',
                         fontSize: '1rem',
                         arrowBackgroundColor: 'white',
                       }"
@@ -71,7 +71,7 @@
                         calendarSelectedTextColor: 'black',
                         backgroundLayerBackgroundColor: '#111827',
                         backgroundLayerOpacity: 0.6,
-                        pickerMaxWidth: '320px',
+                        pickerMaxWidth: '.5rem',
                         fontSize: '1rem',
                         backgroundHeight: '30rem',
                         arrowBackgroundColor: 'white',

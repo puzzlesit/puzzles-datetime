@@ -111,7 +111,8 @@
         </template>
         <template v-if="type === 'time' || type === 'datetime'">
           <div class="time-selectors">
-            <div class="selector">
+            <div class="selector" 
+                 :style="{ width: customStyle.pickerMaxWidth }">
               <div class="arrow"
                    :style="{ backgroundColor: customStyle.arrowBackgroundColor }"
                    @click="move('hour', true)">
@@ -153,7 +154,8 @@
 
             <span>:</span>
 
-            <div class="selector">
+            <div class="selector" 
+                 :style="{ width: customStyle.pickerMaxWidth }">
               <div class="arrow"
                    :style="{ backgroundColor: customStyle.arrowBackgroundColor }"
                    @click="move('minute', true)">
@@ -704,9 +706,7 @@ export default {
       font-size: 40px;
       opacity: 65%;
     }
-
- 
-
+    
     .selected {
       background: #7367f0;
       color: white;
