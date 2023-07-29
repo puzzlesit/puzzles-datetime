@@ -92,7 +92,7 @@
                 <tr>
                   <th v-for="(day, i) in days"
                       :key="day + '-' + i"
-                      :style="{ backgroundColor: customStyle.calendarHeaderBackgroundColor, color: customStyle.calendarHeaderTextColor ,fontSize: customStyle.fontSize, borderColor: customStyle.tableBorderColor }">
+                      :style="{ backgroundColor: customStyle.calendarHeaderBackgroundColor, color: customStyle.calendarHeaderTextColor ,fontSize: customStyle.fontSize, borderColor: customStyle.tableBorderColor, width: customStyle.pickerMaxWidth }">
                     {{ day }}
                   </th>
                 </tr>
@@ -100,7 +100,7 @@
                   <td v-for="(d, j) in row"
                       :key="`col-${i}-${j}`"
                       :class="{ selected: d === datetime.date }"
-                      :style="{ backgroundColor: d === datetime.date ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: d === datetime.date ? customStyle.calendarSelectedTextColor : customStyle.textColor, fontSize: customStyle.fontSize, borderRadius: customStyle.selectRadius, borderColor: customStyle.tableBorderColor }"
+                      :style="{ backgroundColor: d === datetime.date ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: d === datetime.date ? customStyle.calendarSelectedTextColor : customStyle.textColor, fontSize: customStyle.fontSize, borderRadius: customStyle.selectRadius, borderColor: customStyle.tableBorderColor, width: customStyle.pickerMaxWidth }"
                       @click="select(type, d)">
                     {{ d }}
                   </td>
@@ -306,7 +306,7 @@ export default {
         calendarSelectedTextColor: 'white',
         backgroundLayerBackgroundColor: 'black',
         backgroundLayerOpacity: 0,
-        pickerMaxWidth: '320px',
+        pickerMaxWidth: '2.187rem',
         fontFamily: 'Arial, Helvetica, sans-serif',
         fontSize: '1rem',
         backgroundHeight: '100vh',
@@ -610,7 +610,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .puzzles-slot-wrapper {
   cursor: pointer;
 }
@@ -706,12 +705,7 @@ export default {
       opacity: 65%;
     }
 
-    .list-selected {
-      background: #7367f0;
-      color: white;
-      cursor: pointer;
-      border-radius: .5rem;
-    }
+ 
 
     .selected {
       background: #7367f0;

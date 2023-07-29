@@ -12,7 +12,7 @@
                         calendarSelectedTextColor: 'black',
                         backgroundLayerBackgroundColor: '#111827',
                         backgroundLayerOpacity: 0.6,
-                        pickerMaxWidth: '320px',
+                        pickerMaxWidth: '2.187rem',
                         fontSize: '1rem',
                         backgroundHeight: '30rem',
                         arrowBackgroundColor: 'white',
