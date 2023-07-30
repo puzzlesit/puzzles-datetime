@@ -677,7 +677,10 @@ export default {
     }
 
     td.selected {
-      display: initial;
+      display: block;
+      min-width: 2.5rem;
+      padding: 0 0.5rem;
+      box-sizing: border-box;
     }
 
     th {
