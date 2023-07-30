@@ -8,7 +8,7 @@
                         calendarHeaderBackgroundColor: 'white',
                         calendarHeaderTextColor: 'black',
                         calendarDatesBackgroundColor: '#ffffff',
-                        calendarSelectedBackgroundColor: 'blue',
+                        calendarSelectedBackgroundColor: '#39FFA0',
                         calendarSelectedTextColor: 'white',
                         backgroundLayerBackgroundColor: '#111827',
                         backgroundLayerOpacity: 0.6,

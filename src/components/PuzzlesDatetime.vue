@@ -677,7 +677,7 @@ export default {
     }
 
     td.selected {
-      display: block;
+      display: initial;
     }
 
     th {
