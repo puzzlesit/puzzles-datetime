@@ -677,8 +677,8 @@ export default {
     }
 
     td.selected {
-      display: inline-block;
-      min-width: 2rem;
+      display: table-caption;
+      min-width: 2.2rem;
       padding: 0 0.5rem;
       box-sizing: border-box;
     }
