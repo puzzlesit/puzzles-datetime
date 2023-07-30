@@ -8,8 +8,8 @@
                         calendarHeaderBackgroundColor: 'white',
                         calendarHeaderTextColor: 'black',
                         calendarDatesBackgroundColor: '#ffffff',
-                        calendarSelectedBackgroundColor: '#39FFA0',
-                        calendarSelectedTextColor: 'black',
+                        calendarSelectedBackgroundColor: 'blue',
+                        calendarSelectedTextColor: 'white',
                         backgroundLayerBackgroundColor: '#111827',
                         backgroundLayerOpacity: 0.6,
                         pickerMaxWidth: '2.187rem',
@@ -72,13 +72,14 @@
                         calendarSelectedTextColor: 'black',
                         backgroundLayerBackgroundColor: '#111827',
                         backgroundLayerOpacity: 0.6,
-                        pickerMaxWidth: '.5rem',
+                        pickerMaxWidth: '2rem',
                         fontSize: '1rem',
                         backgroundHeight: '30rem',
                         arrowBackgroundColor: 'white',
-                        customRadius: '50%',
+                        selectRadius: '50%',
                         customButtonGap: '8rem',
-                        tableBorderColor: 'white'
+                        tableBorderColor: 'white',
+                        customPickerPadding: '.5rem'
                       }"
                       :require-confirm="true"
                       language="ba"

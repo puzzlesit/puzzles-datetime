@@ -99,7 +99,7 @@
                 <tr v-for="(row, i) in dates" :key="`row-${i}`">
                   <td v-for="(d, j) in row"
                       :key="`col-${i}-${j}`"
-                      :class="{ selected: d === datetime.date }"
+                      :class="{ selected: d === datetime.date }" 
                       :style="{ backgroundColor: d === datetime.date ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: d === datetime.date ? customStyle.calendarSelectedTextColor : customStyle.textColor, fontSize: customStyle.fontSize, borderRadius: customStyle.selectRadius, borderColor: customStyle.tableBorderColor, width: customStyle.pickerMaxWidth, padding: customPickerPadding }"
                       @click="select(type, d)">
                     {{ d }}
@@ -676,6 +676,10 @@ export default {
       width: 2.1875rem;
     }
 
+    td.selected {
+      display: block;
+    }
+
     th {
       font-weight: bold;
       background-color: #e6e6e6;
@@ -707,12 +711,13 @@ export default {
       font-size: 40px;
       opacity: 65%;
     }
-    
+
     .selected {
       background: #7367f0;
       color: white;
       cursor: pointer;
       border-radius: .5rem;
+      line-height: 2;
     }
 
     .time-selectors {
