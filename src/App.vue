@@ -9,7 +9,7 @@
                         calendarHeaderTextColor: 'black',
                         calendarDatesBackgroundColor: '#ffffff',
                         calendarSelectedBackgroundColor: '#39FFA0',
-                        calendarSelectedTextColor: 'white',
+                        calendarSelectedTextColor: 'black',
                         backgroundLayerBackgroundColor: '#111827',
                         backgroundLayerOpacity: 0.6,
                         pickerMaxWidth: '2.187rem',
