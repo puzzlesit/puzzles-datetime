@@ -16,7 +16,7 @@
                         fontSize: '1rem',
                         backgroundHeight: '30rem',
                         arrowBackgroundColor: 'white',
-                        selectRadius: '50%',
+                        selectRadius: '35%',
                         customButtonGap: '6rem',
                         tableBorderColor: 'white',
                         customPickerPadding: '.5rem'
@@ -74,7 +74,7 @@
                         backgroundLayerOpacity: 0.6,
                         pickerMaxWidth: '2rem',
                         fontSize: '1rem',
-                        backgroundHeight: '30rem',
+                        backgroundHeight: '40rem',
                         arrowBackgroundColor: 'white',
                         selectRadius: '50%',
                         customButtonGap: '8rem',
