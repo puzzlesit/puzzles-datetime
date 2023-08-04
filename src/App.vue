@@ -7,7 +7,7 @@
                         textColor: '#364563',
                         calendarHeaderBackgroundColor: 'white',
                         calendarHeaderTextColor: 'black',
-                        calendarDatesBackgroundColor: '#ffffff',
+                        calendarDatesBackgroundColor: 'gray',
                         calendarSelectedBackgroundColor: '#39FFA0',
                         calendarSelectedTextColor: 'black',
                         backgroundLayerBackgroundColor: '#111827',

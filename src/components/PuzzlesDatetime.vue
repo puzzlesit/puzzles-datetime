@@ -670,17 +670,25 @@ export default {
 
     td, th {
       border: 1px solid #797f8a;
-      padding: .5rem;
+      //padding: .5rem
       text-align: center;
       cursor: pointer;
-      width: 2.1875rem;
+      width: 2rem;
+      height: 2rem; /* Set the height to create a perfect circle */
+      align-items: center;
+      padding: .4rem;
     }
 
     td.selected {
-      display: table-caption;
-      min-width: 2.2rem;
-      padding: 0 0.5rem;
-      box-sizing: border-box;
+     background: #7367f0;
+        color: white;
+        cursor: pointer;
+        width: 2rem; /* Set the width to create a perfect circle */
+        height: 2rem; /* Set the height to create a perfect circle */
+        border-radius: 50%; /* Make the selected day a circle */
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
     }
 
     th {
