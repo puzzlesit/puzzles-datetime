@@ -7,7 +7,7 @@
                         textColor: '#364563',
                         calendarHeaderBackgroundColor: 'white',
                         calendarHeaderTextColor: 'black',
-                        calendarDatesBackgroundColor: 'gray',
+                        calendarDatesBackgroundColor: 'white',
                         calendarSelectedBackgroundColor: '#39FFA0',
                         calendarSelectedTextColor: 'black',
                         backgroundLayerBackgroundColor: '#111827',
@@ -15,11 +15,12 @@
                         pickerMaxWidth: '2.187rem',
                         fontSize: '1rem',
                         backgroundHeight: '30rem',
-                        arrowBackgroundColor: 'white',
-                        selectRadius: '35%',
+                        arrowBackgroundColor: '#39FFA0',
+                        selectRadius: '50%',
                         customButtonGap: '6rem',
                         tableBorderColor: 'white',
-                        customPickerPadding: '.5rem'
+                        customPickerPadding: '.5rem',
+                        customFont: 'Arial'
                       }"
                       @display="displayDate = arguments[0]">
       <input v-model="displayDate"

@@ -11,7 +11,7 @@
           class="background"
           @click.self="toggle"></div>
 
-      <div :style="{ fontSize: customStyle.fontSize, backgroundColor: customStyle.backgroundColor, height: customStyle.backgroundHeight}"
+      <div :style="{ fontSize: customStyle.fontSize, backgroundColor: customStyle.backgroundColor, height: customStyle.backgroundHeight, fontFamily: customStyle.customFont}"
            class="puzzles-datetime">
         <template v-if="type === 'date' || type === 'datetime'">
           <template v-if="simple">
@@ -28,7 +28,7 @@
                 <arrow direction="left"/>
               </div>
 
-              <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
+              <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor, fontFamily: customStyle.customFont }"
                     class="selector-field"
                    @click="openSelector('month', true)">
                 {{ monthNames[datetime.month - 1] }}
@@ -45,7 +45,7 @@
                          :key="`month-${month}`"
                          :ref="`month-${month}`"
                          :class="{ selected: month === datetime.month && selectors.month }"
-                         :style="{ backgroundColor: month === datetime.month && selectors.month ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: month === datetime.month && selectors.month ? customStyle.calendarSelectedTextColor : customStyle.textColor }"
+                         :style="{ backgroundColor: month === datetime.month && selectors.month ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: month === datetime.month && selectors.month ? customStyle.calendarSelectedTextColor : customStyle.textColor, fontFamily: customStyle.customFont }"
                          @click="select('month', month, true)">
                       {{ monthNames[month - 1] }}
                     </div>
@@ -54,7 +54,7 @@
               </div>
 
               <div
-                  :style="{ calendarDatesBackgroundColor: customStyle.calendarDatesBackgroundColor, color: customStyle.textColor }"
+                  :style="{ calendarDatesBackgroundColor: customStyle.calendarDatesBackgroundColor, color: customStyle.textColor, fontFamily: customStyle.customFont }"
                    class="selector-field"
                   @click="openSelector('year', true)">
                 {{ datetime.year }}
@@ -72,7 +72,7 @@
                          :key="`year-${year}`"
                          :ref="`year-${year}`"
                          :class="{ selected: year === datetime.year && selectors.year }"
-                         :style="{ backgroundColor: year === datetime.year && selectors.year ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: year === datetime.year && selectors.year ? customStyle.calendarSelectedTextColor : customStyle.textColor }"
+                         :style="{ backgroundColor: year === datetime.year && selectors.year ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: year === datetime.year && selectors.year ? customStyle.calendarSelectedTextColor : customStyle.textColor, fontFamily: customStyle.customFont }"
                          @click="select('year', year, true)">
                       {{ year }}
                     </div>
@@ -92,7 +92,7 @@
                 <tr>
                   <th v-for="(day, i) in days"
                       :key="day + '-' + i"
-                      :style="{ backgroundColor: customStyle.calendarHeaderBackgroundColor, color: customStyle.calendarHeaderTextColor ,fontSize: customStyle.fontSize, borderColor: customStyle.tableBorderColor, width: customStyle.pickerMaxWidth, padding: customStyle.customPickerPadding }">
+                      :style="{ backgroundColor: customStyle.calendarHeaderBackgroundColor, color: customStyle.calendarHeaderTextColor ,fontSize: customStyle.fontSize, borderColor: customStyle.tableBorderColor, width: customStyle.pickerMaxWidth, padding: customStyle.customPickerPadding, fontFamily: customStyle.customFont }">
                     {{ day }}
                   </th>
                 </tr>
@@ -100,7 +100,7 @@
                   <td v-for="(d, j) in row"
                       :key="`col-${i}-${j}`"
                       :class="{ selected: d === datetime.date }" 
-                      :style="{ backgroundColor: d === datetime.date ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: d === datetime.date ? customStyle.calendarSelectedTextColor : customStyle.textColor, fontSize: customStyle.fontSize, borderRadius: customStyle.selectRadius, borderColor: customStyle.tableBorderColor, width: customStyle.pickerMaxWidth, padding: customPickerPadding }"
+                      :style="{ backgroundColor: d === datetime.date ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: d === datetime.date ? customStyle.calendarSelectedTextColor : customStyle.textColor, fontSize: customStyle.fontSize, borderRadius: customStyle.selectRadius, borderColor: customStyle.tableBorderColor, width: customStyle.pickerMaxWidth, padding: customPickerPadding, fontFamily: customStyle.customFont }"
                       @click="select(type, d)">
                     {{ d }}
                   </td>
@@ -119,7 +119,7 @@
                 <arrow direction="up"/>
               </div>
 
-              <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
+              <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor, fontFamily: customStyle.customFont }"
                    class="selector-field"
                    @click="openSelector('hour', true)">
                 {{ datetime.hour }}
@@ -137,7 +137,7 @@
                          :key="`hour-${hour}`"
                          :ref="`hour-${hour}`"
                          :class="{ selected: hour === datetime.hour && selectors.hour }"
-                         :style="{ backgroundColor: hour === datetime.hour && selectors.hour ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: hour === datetime.hour && selectors.hour ? customStyle.calendarSelectedTextColor : customStyle.textColor, }"
+                         :style="{ backgroundColor: hour === datetime.hour && selectors.hour ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: hour === datetime.hour && selectors.hour ? customStyle.calendarSelectedTextColor : customStyle.textColor, fontFamily: customStyle.customFont }"
                          @click="select('hour', hour, true)">
                       {{ hour }}
                     </div>
@@ -162,7 +162,7 @@
                 <arrow direction="up"/>
               </div>
 
-              <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor }"
+              <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor, fontFamily: customStyle.customFont }"
                    class="selector-field"
                    @click="openSelector('minute', true)">
                 {{ datetime.minute }}
@@ -180,7 +180,7 @@
                          :key="`minute-${minute}`"
                          :ref="`minute-${minute}`"
                          :class="{ selected: minute === datetime.minute && selectors.minute }"
-                         :style="{ backgroundColor: minute === datetime.minute && selectors.minute ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: minute === datetime.minute && selectors.minute ? customStyle.calendarSelectedTextColor : customStyle.textColor}"
+                         :style="{ backgroundColor: minute === datetime.minute && selectors.minute ? customStyle.calendarSelectedBackgroundColor : customStyle.calendarDatesBackgroundColor, color: minute === datetime.minute && selectors.minute ? customStyle.calendarSelectedTextColor : customStyle.textColor, fontFamily: customStyle.customFont}"
                          @click="select('minute', minute, true)">
                       {{ minute }}
                     </div>
@@ -199,19 +199,19 @@
 
         <div class="buttons">
          <div class="left-controller">
-          <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor, fontWeight:'bold', marginRight: customStyle.customButtonGap }"
+          <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor, fontWeight:'bold', marginRight: customStyle.customButtonGap, fontFamily: customStyle.customFont }"
                class="button"
                @click="done('time')">
             {{ languageData.buttons.confirm }}
           </div>
          </div>
           <div class="right-controllers">
-            <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor, fontWeight: 'bold'}"
+            <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor, fontWeight: 'bold', fontFamily: customStyle.customFont}"
                  class="button"
                  @click="done('clear')">
               {{ languageData.buttons.clear }}
             </div>
-            <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor, fontWeight: 'bold'}"
+            <div :style="{ backgroundColor: customStyle.backgroundColor, color: customStyle.textColor, fontWeight: 'bold', fontFamily: customStyle.customFont}"
                  class="button"
                  @click="done('close')">
               {{ languageData.buttons.close }}
@@ -316,7 +316,8 @@ export default {
         selectRadius: '0%',
         customButtonGap: '4rem',
         tableBorderColor: 'white',
-        customPickerPadding: '.5rem'
+        customPickerPadding: '.5rem',
+        customFont: 'Arial'
       })
     },
   },
@@ -647,7 +648,6 @@ export default {
     z-index: 1;
   }
 
-
   .puzzles-datetime {
     display: grid;
     place-items: center;
@@ -672,11 +672,10 @@ export default {
       border: 1px solid #797f8a;
       text-align: center;
       cursor: pointer;
-      width: 2rem;
-      height: 2rem; 
+      width: 2.2rem;
+      height: 2.2rem; 
       align-items: center;
       padding: .4rem; 
-      //customStyle -> CircleSize
     }
 
     td.selected {
@@ -733,7 +732,6 @@ export default {
     .time-selectors {
       display: flex;
       justify-content: center;
-      
 
       .selector {
         width: 2rem;
