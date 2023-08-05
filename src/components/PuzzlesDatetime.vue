@@ -152,7 +152,7 @@
               </div>
             </div>
 
-            <span>:</span>
+            <span :style="{ color: customStyle.textColor }">:</span>
 
             <div class="selector" 
                  :style="{ width: customStyle.pickerMaxWidth }">
