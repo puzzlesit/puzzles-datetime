@@ -1,19 +1,26 @@
 <template>
   <div id="app">
     <puzzles-datetime v-model="date"
-                      :custom-days="{ 'mon': 'MON', 'tue': 'TUE', 'thu': 'THU', 'fri': 'FRI', 'wed': 'WED', 'sat': 'SAT', 'sun': 'SUN' }"
+                      :custom-days="{ 'mon': 'M', 'tue': 'T', 'thu': 'T', 'fri': 'F', 'wed': 'W', 'sat': 'S', 'sun': 'S' }"
                       :custom-style="{
                         backgroundColor: '#ffffff',
                         textColor: '#364563',
-                        calendarHeaderBackgroundColor: '#698EC9',
-                        calendarHeaderTextColor: '#ffffff',
-                        calendarDatesBackgroundColor: '#ffffff',
-                        calendarSelectedBackgroundColor: '#7366f0',
-                        calendarSelectedTextColor: '#ffffff',
+                        calendarHeaderBackgroundColor: 'white',
+                        calendarHeaderTextColor: 'black',
+                        calendarDatesBackgroundColor: 'white',
+                        calendarSelectedBackgroundColor: '#39FFA0',
+                        calendarSelectedTextColor: 'black',
                         backgroundLayerBackgroundColor: '#111827',
                         backgroundLayerOpacity: 0.6,
-                        pickerMaxWidth: '320px',
-                        fontSize: '1rem'
+                        pickerMaxWidth: '2.187rem',
+                        fontSize: '1rem',
+                        backgroundHeight: '30rem',
+                        arrowBackgroundColor: '#39FFA0',
+                        selectRadius: '50%',
+                        customButtonGap: '6rem',
+                        tableBorderColor: 'white',
+                        customPickerPadding: '.5rem',
+                        customFont: 'Arial'
                       }"
                       @display="displayDate = arguments[0]">
       <input v-model="displayDate"
@@ -38,8 +45,9 @@
                         calendarSelectedTextColor: '#ffffff',
                         backgroundLayerBackgroundColor: '#111827',
                         backgroundLayerOpacity: 0.6,
-                        pickerMaxWidth: '320px',
-                        fontSize: '1rem'
+                        pickerMaxWidth: '1.5rem',
+                        fontSize: '1rem',
+                        arrowBackgroundColor: 'white',
                       }"
                       type="time"
                       @display="displayTime = arguments[0]">
@@ -58,17 +66,23 @@
                       :custom-style="{
                         backgroundColor: '#ffffff',
                         textColor: '#364563',
-                        calendarHeaderBackgroundColor: '#698EC9',
-                        calendarHeaderTextColor: '#ffffff',
+                        calendarHeaderBackgroundColor: 'white',
+                        calendarHeaderTextColor: 'black',
                         calendarDatesBackgroundColor: '#ffffff',
-                        calendarSelectedBackgroundColor: '#7366f0',
-                        calendarSelectedTextColor: '#ffffff',
+                        calendarSelectedBackgroundColor: '#39FFA0',
+                        calendarSelectedTextColor: 'black',
                         backgroundLayerBackgroundColor: '#111827',
                         backgroundLayerOpacity: 0.6,
-                        pickerMaxWidth: '320px',
-                        fontSize: '1rem'
+                        pickerMaxWidth: '2rem',
+                        fontSize: '1rem',
+                        backgroundHeight: '40rem',
+                        arrowBackgroundColor: 'white',
+                        selectRadius: '50%',
+                        customButtonGap: '8rem',
+                        tableBorderColor: 'white',
+                        customPickerPadding: '.5rem'
                       }"
-                      :require-confirm="false"
+                      :require-confirm="true"
                       language="ba"
                       type="datetime"
                       @display="displayDatetime = arguments[0]">
